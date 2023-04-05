@@ -1,0 +1,15 @@
+# The libraries in this file are used exclusively by the convention plugins
+
+[versions]
+
+[libraries]
+
+gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "7.4.0" }
+gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.8.20" }
+gradlePlugin-ktlint                       = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "11.3.1" }
+gradlePlugin-kotest                       = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version = "5.5.4" }
+gradlePlugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.13.0" }
+gradlePlugin-orchid                       = { module = "gradle.plugin.com.eden:orchidPlugin", version = "0.21.1" }
+
+okhttp                       = { module = "com.squareup.okhttp3:okhttp", version = "4.10.0" }
+semver                       = { module = "net.swiftzer.semver:semver", version = "1.1.2" }

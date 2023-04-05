@@ -1,0 +1,12 @@
+# The libraries in this file are used as the primary version catalog for the libraries using the convention plguins,
+# to keep all Copper Leaf libraries using the same transitive dependency versions.
+#
+# The libraries defined here may also be used directly within the convention plugins themselves for setting up common
+# dependencies like test libraries.
+
+[versions]
+
+[libraries]
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version = "0.4.0" }
+parsus = { module = "me.alllex.parsus:parsus-jvm", version = "0.4.0" }
+betterParse = { module = "com.github.h0tk3y.betterParse:better-parse", version = "0.4.4" }
