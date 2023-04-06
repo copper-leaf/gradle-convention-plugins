@@ -4,7 +4,9 @@ plugins {
     id("com.eden.orchidPlugin")
 }
 
+@Suppress("JcenterRepositoryObsolete")
 repositories {
+    @Suppress("DEPRECATION")
     jcenter()
 }
 

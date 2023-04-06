@@ -8,6 +8,13 @@ import org.gradle.kotlin.dsl.provideDelegate
 object ConventionConfig {
 
     /**
+     * Gets info about the host OS that this Gradle project is currently running on.
+     */
+    fun hostInfo(project: Project): HostInfo {
+        return HostInfo.get(project)
+    }
+
+    /**
      * Gets info common to everything in this repo. Mostly used for publishing.
      */
     fun repoInfo(project: Project): RepoInfo {

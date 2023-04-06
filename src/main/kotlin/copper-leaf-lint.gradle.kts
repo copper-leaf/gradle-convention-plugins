@@ -1,4 +1,4 @@
- import org.gradle.kotlin.dsl.kotlin
+
 
 plugins {
     id("org.jlleitschuh.gradle.ktlint")
@@ -11,7 +11,7 @@ ktlint {
     outputToConsole.set(true)
     ignoreFailures.set(false)
     enableExperimentalRules.set(false)
-    additionalEditorconfigFile.set(file("$rootDir/.editorconfig"))
+//    additionalEditorconfigFile.set(file("$rootDir/.editorconfig"))
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)

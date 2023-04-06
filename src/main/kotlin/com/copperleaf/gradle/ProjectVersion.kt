@@ -156,6 +156,7 @@ fun SemVer.format(
     return if (isSnapshot) "$major.$minor.$patch$snapshotSuffix" else "$major.$minor.$patch"
 }
 
+@Suppress("UNUSED_PARAMETER")
 fun SemVer.bump(
     hasUncommittedChanges: Boolean,
     commitsSinceLastTag: List<String>,
