@@ -15,7 +15,11 @@ kotlin {
     }
 
     if (subprojectInfo.kotlinJvm) {
-        jvm { }
+        jvm {
+            if(subprojectInfo.kotlinJvmWithJava) {
+                withJava()
+            }
+        }
     }
     if (subprojectInfo.kotlinAndroid) {
         android {

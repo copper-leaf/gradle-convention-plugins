@@ -17,6 +17,7 @@ dependencies {
     orchidRuntimeOnly("io.github.javaeden.orchid:OrchidKotlindoc:0.21.1")
     orchidRuntimeOnly("io.github.javaeden.orchid:OrchidPluginDocs:0.21.1")
     orchidRuntimeOnly("io.github.javaeden.orchid:OrchidSnippets:0.21.1")
+    orchidRuntimeOnly("io.github.javaeden.orchid:OrchidWritersBlocks:0.21.1")
     orchidRuntimeOnly("com.google.inject:guice:5.1.0")
 }
 

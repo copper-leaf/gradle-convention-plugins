@@ -7,6 +7,10 @@ plugins {
 }
 
 android {
+    namespace = "com.copperleaf.${project.name.replace("-", ".")}"
+}
+
+android {
     compileSdk = 33
     defaultConfig {
         minSdk = 21
