@@ -5,9 +5,9 @@
 [libraries]
 
 gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "7.4.0" }
-gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.8.10" }
-gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "1.8.10" }
-gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.3.1" }
+gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.8.20" }
+gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "1.8.20" }
+gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.4.0" }
 gradlePlugin-ktlint                       = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "11.3.1" }
 gradlePlugin-kotest                       = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version = "5.5.4" }
 gradlePlugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.13.0" }
