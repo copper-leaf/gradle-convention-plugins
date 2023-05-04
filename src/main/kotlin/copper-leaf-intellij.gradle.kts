@@ -2,6 +2,12 @@
 @file:OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 
 import com.copperleaf.gradle.ConventionConfig
+import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.buildSearchableOptions
+import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.patchPluginXml
+import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.publishPlugin
+import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.runPluginVerifier
+import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.signPlugin
+import org.gradle.internal.impldep.org.bouncycastle.cms.RecipientId.password
 
 plugins {
     kotlin("jvm")
@@ -9,10 +15,6 @@ plugins {
     id("org.jetbrains.compose")
     id("org.jetbrains.intellij")
     id("org.jetbrains.changelog")
-}
-
-configurations.all {
-    resolutionStrategy.sortArtifacts(ResolutionStrategy.SortOrder.DEPENDENCY_FIRST)
 }
 
 dependencies {
@@ -34,7 +36,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     type.set("IC")
-    version.set("2022.3")
+    version.set("2023.1.1")
     downloadSources.set(true)
     plugins.set(listOf("org.jetbrains.kotlin"))
 }
@@ -59,11 +61,20 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("221")
-        untilBuild.set("231.*")
+        untilBuild.set("999.*")
     }
 
     runPluginVerifier {
-        ideVersions.set(listOf("2020.3.2", "2021.1", "2022.1", "2022.1.4", "2022.3"))
+        ideVersions.set(
+            listOf(
+                "2020.3.2",
+                "2021.1",
+                "2022.1",
+                "2022.1.4",
+                "2022.3",
+                "2023.1.1",
+            )
+        )
     }
 }
 
