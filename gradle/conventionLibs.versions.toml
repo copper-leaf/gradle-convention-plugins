@@ -5,7 +5,7 @@
 # dependencies like test libraries.
 
 [versions]
-coroutines = "1.6.4"
+coroutines = "1.7.0"
 serialization = "1.5.0"
 datetime = "0.4.0"
 
