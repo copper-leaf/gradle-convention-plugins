@@ -11,6 +11,7 @@ data class SubprojectInfo(
     val kotlinJvmWithJava: Boolean,
     val kotlinIos: Boolean,
     val kotlinJs: Boolean,
+    val kotlinJsExecutable: Boolean,
 
     val composeMaterial2: Boolean,
     val composeSplitPane: Boolean,
@@ -29,6 +30,7 @@ data class SubprojectInfo(
                 kotlinJvmWithJava = conventionProperties.booleanGradleProperty("copperleaf.targets.jvm.withJava"),
                 kotlinIos = conventionProperties.booleanGradleProperty("copperleaf.targets.ios"),
                 kotlinJs = conventionProperties.booleanGradleProperty("copperleaf.targets.js"),
+                kotlinJsExecutable = conventionProperties.booleanGradleProperty("copperleaf.targets.js.executable"),
 
                 composeMaterial2 = conventionProperties.booleanGradleProperty("copperleaf.compose.material2", defaultValue = true),
                 composeSplitPane = conventionProperties.booleanGradleProperty("copperleaf.compose.splitPane"),

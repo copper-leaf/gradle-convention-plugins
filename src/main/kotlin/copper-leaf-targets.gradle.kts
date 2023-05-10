@@ -33,6 +33,9 @@ kotlin {
                     enabled = false
                 }
             }
+            if(subprojectInfo.kotlinJsExecutable) {
+                binaries.executable()
+            }
         }
     }
     if (subprojectInfo.kotlinIos) {

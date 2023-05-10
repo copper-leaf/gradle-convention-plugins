@@ -8,14 +8,13 @@
 coroutines = "1.7.0"
 serialization = "1.5.0"
 datetime = "0.4.0"
-
 ktor = "2.3.0"
 
 androidxLifecycle = "2.6.1"
 
 multiplatformSettings = "1.0.0"
-uuid = "0.7.0"
 slf4j = "1.7.36"
+ballast = "3.0.0"
 
 [libraries]
 parsus = { module = "me.alllex.parsus:parsus-jvm", version = "0.4.0" }
@@ -40,6 +39,7 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
@@ -54,6 +54,7 @@ androidx-core = { module = "androidx.core:core-ktx", version = "1.10.0" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.5.7" }
 androidx-material = { module = "com.google.android.material:material", version = "1.8.0" }
+androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.7.0" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.0.0" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
@@ -63,11 +64,33 @@ multiplatformSettings-core = { module = "com.russhwolf:multiplatform-settings", 
 multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
 multiplatformSettings-noArg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 
-benasher44-uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+
+ballast-api                  = { module = "io.github.copper-leaf:ballast-api", version.ref = "ballast" }
+ballast-viewmodel            = { module = "io.github.copper-leaf:ballast-viewmodel", version.ref = "ballast" }
+ballast-logging              = { module = "io.github.copper-leaf:ballast-logging", version.ref = "ballast" }
+ballast-utils                = { module = "io.github.copper-leaf:ballast-utils", version.ref = "ballast" }
+ballast-core                 = { module = "io.github.copper-leaf:ballast-core", version.ref = "ballast" }
+ballast-repository           = { module = "io.github.copper-leaf:ballast-repository", version.ref = "ballast" }
+ballast-saved-state          = { module = "io.github.copper-leaf:ballast-saved-state", version.ref = "ballast" }
+ballast-debugger             = { module = "io.github.copper-leaf:ballast-debugger", version.ref = "ballast" }
+ballast-sync                 = { module = "io.github.copper-leaf:ballast-sync", version.ref = "ballast" }
+ballast-undo                 = { module = "io.github.copper-leaf:ballast-undo", version.ref = "ballast" }
+ballast-navigation           = { module = "io.github.copper-leaf:ballast-navigation", version.ref = "ballast" }
+ballast-crash-reporting      = { module = "io.github.copper-leaf:ballast-crash-reporting", version.ref = "ballast" }
+ballast-firebase-crashlytics = { module = "io.github.copper-leaf:ballast-firebase-crashlytics", version.ref = "ballast" }
+ballast-analytics            = { module = "io.github.copper-leaf:ballast-analytics", version.ref = "ballast" }
+ballast-firebase-analytics   = { module = "io.github.copper-leaf:ballast-firebase-analytics", version.ref = "ballast" }
+ballast-test                 = { module = "io.github.copper-leaf:ballast-test", version.ref = "ballast" }
+
+benasher44-uuid = { module = "com.benasher44:uuid", version = "0.7.0" }
 kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.0.0" }
 coil = { module = "io.coil-kt:coil", version = "2.3.0" }
+libres-compose = { module = "io.github.skeptick.libres:libres-compose", version = "1.1.8" }
+composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.3.1" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.0-RC4" }
+
 
 [bundles]
 

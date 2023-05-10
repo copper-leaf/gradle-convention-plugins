@@ -13,9 +13,10 @@ gradlePlugin-kotest                       = { module = "io.kotest:kotest-framewo
 gradlePlugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.13.0" }
 gradlePlugin-orchid                       = { module = "gradle.plugin.com.eden:orchidPlugin", version = "0.21.1" }
 gradlePlugin-buildConfig                  = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version = "3.1.0" }
+gradlePlugin-libRes                       = { module = "io.github.skeptick.libres:gradle-plugin", version = "1.1.8" }
 
 gradlePlugin-jetbrainsIntelliJ            = { module = "org.jetbrains.intellij.plugins:gradle-intellij-plugin", version = "1.13.3" }
 gradlePlugin-jetbrainsChangelog           = { module = "org.jetbrains.intellij.plugins:gradle-changelog-plugin", version = "2.0.0" }
 
-okhttp                       = { module = "com.squareup.okhttp3:okhttp", version = "4.10.0" }
-semver                       = { module = "net.swiftzer.semver:semver", version = "1.1.2" }
+okhttp                                    = { module = "com.squareup.okhttp3:okhttp", version = "4.10.0" }
+semver                                    = { module = "net.swiftzer.semver:semver", version = "1.1.2" }

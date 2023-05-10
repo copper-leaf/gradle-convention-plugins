@@ -2,12 +2,6 @@
 @file:OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
 
 import com.copperleaf.gradle.ConventionConfig
-import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.buildSearchableOptions
-import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.patchPluginXml
-import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.publishPlugin
-import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.runPluginVerifier
-import gradle.kotlin.dsl.accessors._0578569cc21f19f7673e23b4286dde24.signPlugin
-import org.gradle.internal.impldep.org.bouncycastle.cms.RecipientId.password
 
 plugins {
     kotlin("jvm")
