@@ -14,7 +14,8 @@ androidxLifecycle = "2.6.1"
 
 multiplatformSettings = "1.0.0"
 slf4j = "1.7.36"
-ballast = "3.0.0"
+sqldelight = "1.5.4"
+ballast = "3.0.1"
 
 [libraries]
 parsus = { module = "me.alllex.parsus:parsus-jvm", version = "0.4.0" }
@@ -67,21 +68,26 @@ multiplatformSettings-noArg = { module = "com.russhwolf:multiplatform-settings-n
 slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
+sqldelight-driver-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-driver-jvm = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-driver-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqldelight" }
+
+
 ballast-api                  = { module = "io.github.copper-leaf:ballast-api", version.ref = "ballast" }
 ballast-viewmodel            = { module = "io.github.copper-leaf:ballast-viewmodel", version.ref = "ballast" }
 ballast-logging              = { module = "io.github.copper-leaf:ballast-logging", version.ref = "ballast" }
 ballast-utils                = { module = "io.github.copper-leaf:ballast-utils", version.ref = "ballast" }
 ballast-core                 = { module = "io.github.copper-leaf:ballast-core", version.ref = "ballast" }
 ballast-repository           = { module = "io.github.copper-leaf:ballast-repository", version.ref = "ballast" }
-ballast-saved-state          = { module = "io.github.copper-leaf:ballast-saved-state", version.ref = "ballast" }
+ballast-savedState           = { module = "io.github.copper-leaf:ballast-saved-state", version.ref = "ballast" }
 ballast-debugger             = { module = "io.github.copper-leaf:ballast-debugger", version.ref = "ballast" }
 ballast-sync                 = { module = "io.github.copper-leaf:ballast-sync", version.ref = "ballast" }
 ballast-undo                 = { module = "io.github.copper-leaf:ballast-undo", version.ref = "ballast" }
 ballast-navigation           = { module = "io.github.copper-leaf:ballast-navigation", version.ref = "ballast" }
-ballast-crash-reporting      = { module = "io.github.copper-leaf:ballast-crash-reporting", version.ref = "ballast" }
-ballast-firebase-crashlytics = { module = "io.github.copper-leaf:ballast-firebase-crashlytics", version.ref = "ballast" }
+ballast-crashReporting       = { module = "io.github.copper-leaf:ballast-crash-reporting", version.ref = "ballast" }
+ballast-firebaseCrashlytics  = { module = "io.github.copper-leaf:ballast-firebase-crashlytics", version.ref = "ballast" }
 ballast-analytics            = { module = "io.github.copper-leaf:ballast-analytics", version.ref = "ballast" }
-ballast-firebase-analytics   = { module = "io.github.copper-leaf:ballast-firebase-analytics", version.ref = "ballast" }
+ballast-firebaseAnalytics    = { module = "io.github.copper-leaf:ballast-firebase-analytics", version.ref = "ballast" }
 ballast-test                 = { module = "io.github.copper-leaf:ballast-test", version.ref = "ballast" }
 
 benasher44-uuid = { module = "com.benasher44:uuid", version = "0.7.0" }

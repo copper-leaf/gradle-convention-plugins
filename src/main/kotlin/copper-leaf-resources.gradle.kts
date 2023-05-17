@@ -1,18 +1,24 @@
 import com.copperleaf.gradle.ConventionConfig
+import dev.icerock.gradle.MRVisibility
 
 plugins {
-    id("io.github.skeptick.libres")
+    kotlin("multiplatform")
+    id("dev.icerock.mobile.multiplatform-resources")
+}
+
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("dev.icerock.moko:resources:0.22.0")
+            }
+        }
+    }
 }
 
 val subprojectInfo = ConventionConfig.subprojectInfo(project)
-if (subprojectInfo.kotlinJvm) {
-    tasks.getByPath("jvmProcessResources").dependsOn("libresGenerateResources")
-    tasks.getByPath("jvmSourcesJar").dependsOn("libresGenerateResources")
-}
-if (subprojectInfo.kotlinJs) {
-    tasks.getByPath("jsProcessResources").dependsOn("libresGenerateResources")
+multiplatformResources {
+    multiplatformResourcesPackage = "com.copperleaf.${project.name}"
+    iosBaseLocalizationRegion = "en"
 }
 
-libres {
-
-}
