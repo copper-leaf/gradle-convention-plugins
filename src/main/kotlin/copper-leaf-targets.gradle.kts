@@ -22,7 +22,7 @@ kotlin {
         }
     }
     if (subprojectInfo.kotlinAndroid) {
-        android {
+        androidTarget {
             publishAllLibraryVariants()
         }
     }
