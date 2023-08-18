@@ -55,7 +55,7 @@ kotlin {
             val jsMain by getting {
                 dependencies {
                     if(subprojectInfo.composeJsDom) {
-                        implementation(compose.web.core)
+                        implementation(compose.html.core)
                         implementation(compose.runtime)
                     }
                 }

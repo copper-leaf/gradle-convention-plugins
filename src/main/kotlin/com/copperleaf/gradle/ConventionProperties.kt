@@ -1,6 +1,7 @@
 package com.copperleaf.gradle
 
 import org.gradle.api.Project
+import java.util.*
 
 class ConventionProperties(private val project: Project) {
 
@@ -22,7 +23,7 @@ class ConventionProperties(private val project: Project) {
 
     fun envOrGradleProperty(
         projectPropertyName: String,
-        envName: String = projectPropertyName.toUpperCase()
+        envName: String = projectPropertyName.uppercase(Locale.getDefault())
     ): String {
         return env(envName)
             ?: gradleProjectProperty(projectPropertyName)
@@ -31,7 +32,7 @@ class ConventionProperties(private val project: Project) {
 
     fun envOrGradlePropertyAsFile(
         projectPropertyName: String,
-        envName: String = projectPropertyName.toUpperCase()
+        envName: String = projectPropertyName.uppercase(Locale.getDefault())
     ): String {
         return decodeIfNeeded(env(envName))
             ?: decodeIfNeeded(gradleProjectProperty(projectPropertyName))

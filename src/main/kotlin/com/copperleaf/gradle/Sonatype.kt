@@ -99,7 +99,7 @@ class Sonatype(private val project: Project) {
     fun writeProjectVersion() {
         val projectVersion: ProjectVersion = ConventionConfig.projectVersion(project)
 
-        val file = project.rootProject.buildDir.resolve("export").resolve("projectVersion")
+        val file = project.rootProject.layout.buildDirectory.asFile.get().resolve("export").resolve("projectVersion")
         if(!file.parentFile.exists()) {
             file.parentFile.mkdirs()
         }

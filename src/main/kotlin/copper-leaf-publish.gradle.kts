@@ -18,7 +18,7 @@ publishing {
     // Configure maven central repository
     repositories {
         // publish to the project buildDir to make sure things are getting published correctly
-        maven(url = "${project.buildDir}/.m2/repository") {
+        maven(url = "${project.layout.buildDirectory.asFile.get()}/.m2/repository") {
             name = "project"
         }
         maven(url = "${publishConfiguration.mavenRepositoryBaseUrl}/service/local/staging/deployByRepositoryId/${publishConfiguration.stagingRepositoryId}") {
@@ -145,6 +145,8 @@ afterEvaluate {
         tasks.getByName("publishIosX64PublicationToMavenLocal") { dependsOn("signKotlinMultiplatformPublication") }
         tasks.getByName("publishIosSimulatorArm64PublicationToMavenLocal") { dependsOn("signKotlinMultiplatformPublication") }
         tasks.getByName("publishIosArm64PublicationToMavenLocal") { dependsOn("signKotlinMultiplatformPublication") }
+        tasks.getByName("compileTestKotlinIosSimulatorArm64") { mustRunAfter("signIosSimulatorArm64Publication") }
+        tasks.getByName("compileTestKotlinIosX64") { mustRunAfter("signIosX64Publication") }
 
         if (subprojectInfo.kotlinAndroid) {
             tasks.getByName("publishIosArm64PublicationToMavenLocal") { dependsOn("signAndroidReleasePublication") }

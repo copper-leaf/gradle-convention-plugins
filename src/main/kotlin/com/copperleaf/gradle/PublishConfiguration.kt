@@ -78,7 +78,7 @@ data class PublishConfiguration(
                 githubToken = conventionProperties.envOrGradleProperty("github_token", "GITHUB_TOKEN"),
 
                 mavenRepositoryBaseUrl = "https://s01.oss.sonatype.org",
-                stagingRepositoryIdFile = project.rootProject.buildDir.resolve("export").resolve("stagingRepositoryId"),
+                stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export").resolve("stagingRepositoryId"),
                 stagingProfileId = conventionProperties.envOrGradleProperty("staging_profile_id"),
 
                 signingKeyId = conventionProperties.envOrGradleProperty("signing_key_id"),

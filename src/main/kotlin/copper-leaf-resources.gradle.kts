@@ -1,6 +1,5 @@
 import com.copperleaf.gradle.ConventionConfig
 import dev.icerock.gradle.MRVisibility
-import gradle.kotlin.dsl.accessors._d6ab92d9865bfb93fb5c469c9305c216.multiplatformResources
 
 plugins {
     kotlin("multiplatform")
