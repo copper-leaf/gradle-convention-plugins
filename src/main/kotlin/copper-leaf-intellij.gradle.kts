@@ -33,6 +33,7 @@ intellij {
     version.set("2023.1.1")
     downloadSources.set(true)
     plugins.set(listOf("org.jetbrains.kotlin"))
+    updateSinceUntilBuild.set(false)
 }
 
 tasks {
@@ -53,11 +54,6 @@ tasks {
         token.set(publishConfiguration.jetbrainsMarketplaceToken)
     }
 
-    patchPluginXml {
-        sinceBuild.set("221")
-        untilBuild.set("999.*")
-    }
-
     runPluginVerifier {
         ideVersions.set(
             listOf(
@@ -74,7 +70,6 @@ tasks {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "11"
         freeCompilerArgs += "-opt-in=kotlin.ExperimentalStdlibApi"
         freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         freeCompilerArgs += "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
