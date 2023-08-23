@@ -28,11 +28,7 @@ kotlin {
     }
     if (subprojectInfo.kotlinJs) {
         js(IR) {
-            browser {
-                testTask(Action {
-                    enabled = false
-                })
-            }
+            browser()
             if(subprojectInfo.kotlinJsExecutable) {
                 binaries.executable()
             }
