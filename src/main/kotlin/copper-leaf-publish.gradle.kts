@@ -91,4 +91,9 @@ afterEvaluate {
         val signingTasks = tasks.withType<Sign>()
         mustRunAfter(signingTasks)
     }
+
+    if(subprojectInfo.kotlinIos) {
+        tasks.named("compileTestKotlinIosSimulatorArm64").configure { mustRunAfter("signIosSimulatorArm64Publication") }
+        tasks.named("linkDebugTestIosSimulatorArm64").configure { mustRunAfter("signIosSimulatorArm64Publication") }
+    }
 }
