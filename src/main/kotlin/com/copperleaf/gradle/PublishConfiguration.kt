@@ -2,6 +2,10 @@ package com.copperleaf.gradle
 
 import org.gradle.api.Project
 import java.io.File
+import java.io.FileOutputStream
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+
 
 data class PublishConfiguration(
     val githubUser: String,
@@ -22,6 +26,7 @@ data class PublishConfiguration(
     val jetbrainsMarketplaceCertificateChain: String,
     val jetbrainsMarketplaceToken: String,
 
+    val androidKeystoreEncodedText: String,
     val androidKeystorePath: String,
     val androidKeystorePassword: String,
     val androidKeystoreKeyAlias: String,
@@ -71,11 +76,27 @@ data class PublishConfiguration(
             |    jetbrainsMarketplaceCertificateChain=${if (jetbrainsMarketplaceCertificateChain.isNotBlank()) "[REDACTED]" else ""}
             |    jetbrainsMarketplaceToken=${if (jetbrainsMarketplaceToken.isNotBlank()) "[REDACTED]" else ""}
             |    
-            |    androidKeystorePassword=${if(androidKeystorePassword.isNotBlank()) "[REDACTED]" else ""}
-            |    androidKeystoreKeyAlias=${if(androidKeystoreKeyAlias.isNotBlank()) "[REDACTED]" else ""}
-            |    androidKeystoreKeyPassword=${if(androidKeystoreKeyPassword.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystoreEncodedText=${if (androidKeystoreEncodedText.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystorePath=${if (androidKeystorePath.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystorePassword=${if (androidKeystorePassword.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystoreKeyAlias=${if (androidKeystoreKeyAlias.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystoreKeyPassword=${if (androidKeystoreKeyPassword.isNotBlank()) "[REDACTED]" else ""}
             |)
         """.trimMargin()
+    }
+
+    @OptIn(ExperimentalEncodingApi::class)
+    fun saveKeystoreFile(project: Project) {
+        // don't need to do anything if the keystore is already there
+        // during (local dev) or isn't specified (not running an
+        // Android app)
+        val keystoreFile = project.file(androidKeystorePath)
+        if (keystoreFile.exists()) return
+        if (androidKeystoreEncodedText.isBlank()) return
+
+        val data: ByteArray = Base64.decode(androidKeystoreEncodedText)
+        keystoreFile.createNewFile()
+        keystoreFile.outputStream().use { stream -> stream.write(data) }
     }
 
     companion object {
@@ -87,7 +108,8 @@ data class PublishConfiguration(
                 githubToken = conventionProperties.property("github_token"),
 
                 mavenRepositoryBaseUrl = "https://s01.oss.sonatype.org",
-                stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export").resolve("stagingRepositoryId"),
+                stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export")
+                    .resolve("stagingRepositoryId"),
                 stagingProfileId = conventionProperties.property("staging_profile_id"),
 
                 signingKeyId = conventionProperties.property("signing_key_id"),
@@ -101,11 +123,12 @@ data class PublishConfiguration(
                 jetbrainsMarketplaceCertificateChain = conventionProperties.propertyAsFile("jb_chain"),
                 jetbrainsMarketplaceToken = conventionProperties.property("jb_marketplace_token"),
 
+                androidKeystoreEncodedText = conventionProperties.property("keystore_encoded"),
                 androidKeystorePath = conventionProperties.property("keystore_path", "./../release.keystore"),
                 androidKeystorePassword = conventionProperties.property("keystore_password"),
                 androidKeystoreKeyAlias = conventionProperties.property("keystore_key_alias"),
                 androidKeystoreKeyPassword = conventionProperties.property("keystore_key_password"),
-            )
+            ).also { it.saveKeystoreFile(project) }
         }
     }
 }
