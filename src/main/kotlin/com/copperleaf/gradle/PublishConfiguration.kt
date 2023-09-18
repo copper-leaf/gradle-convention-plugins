@@ -2,9 +2,7 @@ package com.copperleaf.gradle
 
 import org.gradle.api.Project
 import java.io.File
-import java.io.FileOutputStream
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
+import java.util.*
 
 
 data class PublishConfiguration(
@@ -85,7 +83,6 @@ data class PublishConfiguration(
         """.trimMargin()
     }
 
-    @OptIn(ExperimentalEncodingApi::class)
     fun saveKeystoreFile(project: Project) {
         // don't need to do anything if the keystore is already there
         // during (local dev) or isn't specified (not running an
@@ -94,7 +91,7 @@ data class PublishConfiguration(
         if (keystoreFile.exists()) return
         if (androidKeystoreEncodedText.isBlank()) return
 
-        val data: ByteArray = Base64.decode(androidKeystoreEncodedText)
+        val data: ByteArray = Base64.getDecoder().decode(androidKeystoreEncodedText)
         keystoreFile.createNewFile()
         keystoreFile.outputStream().use { stream -> stream.write(data) }
     }
