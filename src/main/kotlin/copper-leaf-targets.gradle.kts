@@ -2,6 +2,7 @@
 
 import com.copperleaf.gradle.ConventionConfig
 import com.copperleaf.gradle.nativeTargetGroup
+import org.gradle.api.tasks.compile.JavaCompile
 
 plugins {
     kotlin("multiplatform")
@@ -28,7 +29,11 @@ kotlin {
     }
     if (subprojectInfo.kotlinJs) {
         js(IR) {
-            browser()
+            browser {
+                commonWebpackConfig {
+                    devServer?.`open` = false
+                }
+            }
             if(subprojectInfo.kotlinJsExecutable) {
                 binaries.executable()
             }

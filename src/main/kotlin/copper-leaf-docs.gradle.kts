@@ -25,7 +25,7 @@ dependencies {
 // ---------------------------------------------------------------------------------------------------------------------
 
 orchid {
-    githubToken = ConventionConfig.repoInfo(project).publishConfiguration.githubToken
+    githubToken = ConventionConfig.publishConfig(project).githubToken
     version = ConventionConfig.projectVersion(project).documentationVersion
 }
 

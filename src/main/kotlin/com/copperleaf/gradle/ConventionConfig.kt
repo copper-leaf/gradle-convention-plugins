@@ -36,4 +36,12 @@ object ConventionConfig {
         val projectVersion: ProjectVersion by project.extra
         return projectVersion
     }
+
+    /**
+     * Gets the project version. This property should be the same among all subprojects, and
+     * is based on Git tags and messages, so the actual value is cached in the project extras.
+     */
+    fun publishConfig(project: Project): PublishConfiguration {
+        return PublishConfiguration.get(project)
+    }
 }

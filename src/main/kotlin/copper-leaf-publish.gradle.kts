@@ -13,7 +13,7 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 publishing {
-    val publishConfiguration: PublishConfiguration = ConventionConfig.repoInfo(project).publishConfiguration
+    val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
 
     // Configure maven central repository
     repositories {
@@ -71,7 +71,7 @@ publishing {
 }
 
 signing {
-    val publishConfiguration: PublishConfiguration = ConventionConfig.repoInfo(project).publishConfiguration
+    val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
 
     useInMemoryPgpKeys(
         publishConfiguration.signingKeyId,

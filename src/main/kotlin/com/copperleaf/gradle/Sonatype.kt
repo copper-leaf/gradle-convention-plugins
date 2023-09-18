@@ -57,7 +57,7 @@ class Sonatype(private val project: Project) {
     }
 
     fun openSonatypeStagingRepository()  {
-        val publishConfiguration: PublishConfiguration = ConventionConfig.repoInfo(project).publishConfiguration
+        val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
 
         val doc = publishConfiguration
             .sonatypeRequest(
@@ -77,7 +77,7 @@ class Sonatype(private val project: Project) {
     }
 
     fun closeSonatypeStagingRepository() {
-        val publishConfiguration: PublishConfiguration = ConventionConfig.repoInfo(project).publishConfiguration
+        val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
 
         publishConfiguration
             .sonatypeRequest(

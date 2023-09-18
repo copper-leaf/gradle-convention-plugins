@@ -43,14 +43,14 @@ tasks {
     }
 
     signPlugin {
-        val publishConfiguration = ConventionConfig.repoInfo(project).publishConfiguration
+        val publishConfiguration = ConventionConfig.publishConfig(project)
         certificateChain.set(publishConfiguration.jetbrainsMarketplaceCertificateChain)
         privateKey.set(publishConfiguration.jetbrainsMarketplacePrivateKey)
         password.set(publishConfiguration.jetbrainsMarketplacePassphrase)
     }
 
     publishPlugin {
-        val publishConfiguration = ConventionConfig.repoInfo(project).publishConfiguration
+        val publishConfiguration = ConventionConfig.publishConfig(project)
         token.set(publishConfiguration.jetbrainsMarketplaceToken)
     }
 

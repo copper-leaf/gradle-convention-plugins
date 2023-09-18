@@ -22,19 +22,19 @@ data class SubprojectInfo(
             val conventionProperties = ConventionProperties(project)
 
             return SubprojectInfo(
-                description = conventionProperties.gradleProperty("copperleaf.description"),
-                explicitApi = conventionProperties.booleanGradleProperty("copperleaf.explicitApi", defaultValue = true),
+                description = conventionProperties.property("copperleaf.description"),
+                explicitApi = conventionProperties.booleanProperty("copperleaf.explicitApi", defaultValue = true),
 
-                kotlinAndroid = conventionProperties.booleanGradleProperty("copperleaf.targets.android"),
-                kotlinJvm = conventionProperties.booleanGradleProperty("copperleaf.targets.jvm"),
-                kotlinJvmWithJava = conventionProperties.booleanGradleProperty("copperleaf.targets.jvm.withJava"),
-                kotlinIos = conventionProperties.booleanGradleProperty("copperleaf.targets.ios"),
-                kotlinJs = conventionProperties.booleanGradleProperty("copperleaf.targets.js"),
-                kotlinJsExecutable = conventionProperties.booleanGradleProperty("copperleaf.targets.js.executable"),
+                kotlinAndroid = conventionProperties.booleanProperty("copperleaf.targets.android"),
+                kotlinJvm = conventionProperties.booleanProperty("copperleaf.targets.jvm"),
+                kotlinJvmWithJava = conventionProperties.booleanProperty("copperleaf.targets.jvm.withJava"),
+                kotlinIos = conventionProperties.booleanProperty("copperleaf.targets.ios"),
+                kotlinJs = conventionProperties.booleanProperty("copperleaf.targets.js"),
+                kotlinJsExecutable = conventionProperties.booleanProperty("copperleaf.targets.js.executable"),
 
-                composeMaterial2 = conventionProperties.booleanGradleProperty("copperleaf.compose.material2", defaultValue = true),
-                composeSplitPane = conventionProperties.booleanGradleProperty("copperleaf.compose.splitPane"),
-                composeJsDom = conventionProperties.booleanGradleProperty("copperleaf.compose.js.dom"),
+                composeMaterial2 = conventionProperties.booleanProperty("copperleaf.compose.material2", defaultValue = true),
+                composeSplitPane = conventionProperties.booleanProperty("copperleaf.compose.splitPane"),
+                composeJsDom = conventionProperties.booleanProperty("copperleaf.compose.js.dom"),
             )
         }
     }

@@ -21,6 +21,11 @@ data class PublishConfiguration(
     val jetbrainsMarketplacePrivateKey: String,
     val jetbrainsMarketplaceCertificateChain: String,
     val jetbrainsMarketplaceToken: String,
+
+    val androidKeystorePath: String,
+    val androidKeystorePassword: String,
+    val androidKeystoreKeyAlias: String,
+    val androidKeystoreKeyPassword: String,
 ) {
     var stagingRepositoryId: String
         get() {
@@ -65,6 +70,10 @@ data class PublishConfiguration(
             |    jetbrainsMarketplacePrivateKey=${if (jetbrainsMarketplacePrivateKey.isNotBlank()) "[REDACTED]" else ""}
             |    jetbrainsMarketplaceCertificateChain=${if (jetbrainsMarketplaceCertificateChain.isNotBlank()) "[REDACTED]" else ""}
             |    jetbrainsMarketplaceToken=${if (jetbrainsMarketplaceToken.isNotBlank()) "[REDACTED]" else ""}
+            |    
+            |    androidKeystorePassword=${if(androidKeystorePassword.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystoreKeyAlias=${if(androidKeystoreKeyAlias.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystoreKeyPassword=${if(androidKeystoreKeyPassword.isNotBlank()) "[REDACTED]" else ""}
             |)
         """.trimMargin()
     }
@@ -74,23 +83,28 @@ data class PublishConfiguration(
             val conventionProperties = ConventionProperties(project)
 
             return PublishConfiguration(
-                githubUser = conventionProperties.envOrGradleProperty("github_username", "GITHUB_ACTOR"),
-                githubToken = conventionProperties.envOrGradleProperty("github_token", "GITHUB_TOKEN"),
+                githubUser = conventionProperties.property("github_username"),
+                githubToken = conventionProperties.property("github_token"),
 
                 mavenRepositoryBaseUrl = "https://s01.oss.sonatype.org",
                 stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export").resolve("stagingRepositoryId"),
-                stagingProfileId = conventionProperties.envOrGradleProperty("staging_profile_id"),
+                stagingProfileId = conventionProperties.property("staging_profile_id"),
 
-                signingKeyId = conventionProperties.envOrGradleProperty("signing_key_id"),
-                signingKey = conventionProperties.envOrGradlePropertyAsFile("signing_key"),
-                signingPassword = conventionProperties.envOrGradleProperty("signing_password"),
-                ossrhUsername = conventionProperties.envOrGradleProperty("ossrh_username"),
-                ossrhPassword = conventionProperties.envOrGradleProperty("ossrh_password"),
+                signingKeyId = conventionProperties.property("signing_key_id"),
+                signingKey = conventionProperties.propertyAsFile("signing_key"),
+                signingPassword = conventionProperties.property("signing_password"),
+                ossrhUsername = conventionProperties.property("ossrh_username"),
+                ossrhPassword = conventionProperties.property("ossrh_password"),
 
-                jetbrainsMarketplacePassphrase = conventionProperties.envOrGradleProperty("jb_passphrase"),
-                jetbrainsMarketplacePrivateKey = conventionProperties.envOrGradlePropertyAsFile("jb_signing_key"),
-                jetbrainsMarketplaceCertificateChain = conventionProperties.envOrGradlePropertyAsFile("jb_chain"),
-                jetbrainsMarketplaceToken = conventionProperties.envOrGradleProperty("jb_marketplace_token"),
+                jetbrainsMarketplacePassphrase = conventionProperties.property("jb_passphrase"),
+                jetbrainsMarketplacePrivateKey = conventionProperties.propertyAsFile("jb_signing_key"),
+                jetbrainsMarketplaceCertificateChain = conventionProperties.propertyAsFile("jb_chain"),
+                jetbrainsMarketplaceToken = conventionProperties.property("jb_marketplace_token"),
+
+                androidKeystorePath = conventionProperties.property("keystore_path", "./../release.keystore"),
+                androidKeystorePassword = conventionProperties.property("keystore_password"),
+                androidKeystoreKeyAlias = conventionProperties.property("keystore_key_alias"),
+                androidKeystoreKeyPassword = conventionProperties.property("keystore_key_password"),
             )
         }
     }

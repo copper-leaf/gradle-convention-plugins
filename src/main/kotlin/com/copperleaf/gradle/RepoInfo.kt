@@ -9,7 +9,6 @@ data class RepoInfo(
     val license: License,
     val javaVersion: String,
     val developer: Developer,
-    val publishConfiguration: PublishConfiguration,
 ) {
     companion object {
         fun get(project: Project): RepoInfo {
@@ -23,7 +22,6 @@ data class RepoInfo(
                     name = "Casey Brooks",
                     email = "cjbrooks12@gmail.com",
                 ),
-                publishConfiguration = PublishConfiguration.get(project),
             )
         }
     }
