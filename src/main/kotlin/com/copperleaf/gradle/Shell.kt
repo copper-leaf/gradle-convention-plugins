@@ -6,15 +6,8 @@ import java.io.ByteArrayOutputStream
 abstract class Shell(private val project: Project) {
 
     protected fun runCommand(command: String): String = with(project) {
-        return runCatching {
-            val stdout = ByteArrayOutputStream()
-
-            exec {
-                commandLine(*command.split(' ').toTypedArray())
-                standardOutput = stdout
-            }
-
-            stdout.toString().trim()
-        }.getOrElse { "" }
+        return providers.exec {
+            commandLine(command.split(' '))
+        }.standardOutput.asText.get().trim()
     }
 }

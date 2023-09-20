@@ -5,6 +5,7 @@ import org.gradle.api.Project
 data class SubprojectInfo(
     val description: String,
     val explicitApi: Boolean,
+    val contextReceivers: Boolean,
 
     val kotlinAndroid: Boolean,
     val kotlinJvm: Boolean,
@@ -24,6 +25,7 @@ data class SubprojectInfo(
             return SubprojectInfo(
                 description = conventionProperties.property("copperleaf.description"),
                 explicitApi = conventionProperties.booleanProperty("copperleaf.explicitApi", defaultValue = true),
+                contextReceivers = conventionProperties.booleanProperty("copperleaf.contextReceivers", defaultValue = false),
 
                 kotlinAndroid = conventionProperties.booleanProperty("copperleaf.targets.android"),
                 kotlinJvm = conventionProperties.booleanProperty("copperleaf.targets.jvm"),

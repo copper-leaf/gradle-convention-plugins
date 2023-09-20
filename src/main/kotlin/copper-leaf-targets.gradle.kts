@@ -8,8 +8,9 @@ plugins {
     kotlin("multiplatform")
 }
 
+val subprojectInfo = ConventionConfig.subprojectInfo(project)
+
 kotlin {
-    val subprojectInfo = ConventionConfig.subprojectInfo(project)
 
     if (subprojectInfo.explicitApi) {
         explicitApi()
@@ -17,7 +18,7 @@ kotlin {
 
     if (subprojectInfo.kotlinJvm) {
         jvm {
-            if(subprojectInfo.kotlinJvmWithJava) {
+            if (subprojectInfo.kotlinJvmWithJava) {
                 withJava()
             }
         }
@@ -34,7 +35,7 @@ kotlin {
                     devServer?.`open` = false
                 }
             }
-            if(subprojectInfo.kotlinJsExecutable) {
+            if (subprojectInfo.kotlinJsExecutable) {
                 binaries.executable()
             }
         }
@@ -107,5 +108,9 @@ tasks.withType<JavaCompile> {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         jvmTarget = ConventionConfig.repoInfo(project).javaVersion
+        if (subprojectInfo.contextReceivers) {
+            freeCompilerArgs = freeCompilerArgs + "-Xcontext-receivers"
+        }
     }
 }
+
