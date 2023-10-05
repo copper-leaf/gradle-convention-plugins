@@ -29,6 +29,7 @@ data class PublishConfiguration(
     val androidKeystorePassword: String,
     val androidKeystoreKeyAlias: String,
     val androidKeystoreKeyPassword: String,
+    val androidReleaseModeEnabled: Boolean,
 ) {
     var stagingRepositoryId: String
         get() {
@@ -125,6 +126,7 @@ data class PublishConfiguration(
                 androidKeystorePassword = conventionProperties.property("keystore_password"),
                 androidKeystoreKeyAlias = conventionProperties.property("keystore_key_alias"),
                 androidKeystoreKeyPassword = conventionProperties.property("keystore_key_password"),
+                androidReleaseModeEnabled = conventionProperties.booleanProperty("copperleaf.targets.android.release.enabled", true),
             ).also { it.saveKeystoreFile(project) }
         }
     }

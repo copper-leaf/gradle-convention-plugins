@@ -19,7 +19,10 @@ kotlin {
                 if(subprojectInfo.composeMaterial2) {
                     implementation(compose.foundation)
                     implementation(compose.material)
-                    implementation(compose.materialIconsExtended)
+                }
+                if(subprojectInfo.composeMaterial3) {
+                    implementation(compose.foundation)
+                    implementation(compose.material3)
                 }
             }
         }

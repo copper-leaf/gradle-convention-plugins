@@ -21,12 +21,15 @@ android {
     signingConfigs {
         getByName("debug") {
         }
-        create("release") {
-            val publishConfiguration = ConventionConfig.publishConfig(project)
-            storeFile = file(publishConfiguration.androidKeystorePath)
-            storePassword = publishConfiguration.androidKeystorePassword
-            keyAlias = publishConfiguration.androidKeystoreKeyAlias
-            keyPassword = publishConfiguration.androidKeystoreKeyPassword
+
+        val publishConfiguration = ConventionConfig.publishConfig(project)
+        if(publishConfiguration.androidReleaseModeEnabled) {
+            create("release") {
+                storeFile = file(publishConfiguration.androidKeystorePath)
+                storePassword = publishConfiguration.androidKeystorePassword
+                keyAlias = publishConfiguration.androidKeystoreKeyAlias
+                keyPassword = publishConfiguration.androidKeystoreKeyPassword
+            }
         }
     }
     buildTypes {
@@ -34,25 +37,28 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
 
-        release {
-            // Releases are signed by CI/CD pipelines
-            signingConfig = signingConfigs.getByName("release")
+        val publishConfiguration = ConventionConfig.publishConfig(project)
+        if(publishConfiguration.androidReleaseModeEnabled) {
+            release {
+                // Releases are signed by CI/CD pipelines
+                signingConfig = signingConfigs.getByName("release")
 
-            // Enables code shrinking, obfuscation, and optimization for only
-            // your project's release build type.
-            isMinifyEnabled = true
+                // Enables code shrinking, obfuscation, and optimization for only
+                // your project's release build type.
+                isMinifyEnabled = true
 
-            // Enables resource shrinking, which is performed by the
-            // Android Gradle plugin.
-            isShrinkResources = true
+                // Enables resource shrinking, which is performed by the
+                // Android Gradle plugin.
+                isShrinkResources = true
 
-            // Includes the default ProGuard rules files that are packaged with
-            // the Android Gradle plugin. To learn more, go to the section about
-            // R8 configuration files.
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+                // Includes the default ProGuard rules files that are packaged with
+                // the Android Gradle plugin. To learn more, go to the section about
+                // R8 configuration files.
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
         }
     }
     testOptions {

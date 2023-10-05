@@ -15,6 +15,7 @@ data class SubprojectInfo(
     val kotlinJsExecutable: Boolean,
 
     val composeMaterial2: Boolean,
+    val composeMaterial3: Boolean,
     val composeSplitPane: Boolean,
     val composeJsDom: Boolean,
 ) {
@@ -35,6 +36,7 @@ data class SubprojectInfo(
                 kotlinJsExecutable = conventionProperties.booleanProperty("copperleaf.targets.js.executable"),
 
                 composeMaterial2 = conventionProperties.booleanProperty("copperleaf.compose.material2", defaultValue = true),
+                composeMaterial3 = conventionProperties.booleanProperty("copperleaf.compose.material3", defaultValue = false),
                 composeSplitPane = conventionProperties.booleanProperty("copperleaf.compose.splitPane"),
                 composeJsDom = conventionProperties.booleanProperty("copperleaf.compose.js.dom"),
             )
