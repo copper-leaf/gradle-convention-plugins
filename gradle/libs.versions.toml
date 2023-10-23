@@ -4,7 +4,7 @@
 
 [libraries]
 
-gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "8.0.0" }
+gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "8.1.0" }
 gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.9.10" }
 gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "1.9.10" }
 gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.5.1" }
