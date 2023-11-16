@@ -13,7 +13,7 @@ data class ProjectVersion(
     val snapshotSuffix: String,
     val previousSha: String,
     val latestSha: String,
-    val commitsSincePreviousVersion: List<String>
+    val commitsSincePreviousVersion: List<String>,
 ) {
     val previousOrInitialVersion: SemVer
         get() {
@@ -37,6 +37,17 @@ data class ProjectVersion(
                 previousOrInitialVersion.format(false, snapshotSuffix)
             } else {
                 nextVersion.format(true, snapshotSuffix)
+            }
+        }
+
+    val projectVersionInt: Int
+        get() {
+            return if (isRelease) {
+                nextVersion.formatAsInt(false)
+            } else if (isDocsUpdate) {
+                previousOrInitialVersion.formatAsInt(false)
+            } else {
+                nextVersion.formatAsInt(true)
             }
         }
 
@@ -81,7 +92,7 @@ data class ProjectVersion(
                 for (commit in commitsSincePreviousVersion) {
                     appendLine("  - $commit")
                 }
-            }
+            },
         )
     }
 
@@ -94,7 +105,7 @@ data class ProjectVersion(
             snapshotSuffix: String = "-SNAPSHOT",
             initialVersion: String = "0.1.0",
             majorVersionBumpCommitPrefix: String = "[major]",
-            minorVersionBumpCommitPrefix: String = "[minor]"
+            minorVersionBumpCommitPrefix: String = "[minor]",
         ): ProjectVersion = with(project) {
             val gitShell = Git(this)
 
@@ -139,7 +150,7 @@ data class ProjectVersion(
                 snapshotSuffix = snapshotSuffix,
                 latestSha = currentSha,
                 previousSha = latestTagSha,
-                commitsSincePreviousVersion = commitsSinceLastTag
+                commitsSincePreviousVersion = commitsSinceLastTag,
             ).also {
                 if (logChanges) {
                     it.log()
@@ -179,4 +190,25 @@ fun SemVer.bump(
     }
 
     return SemVer(major = _major, minor = _minor, patch = _patch)
+}
+
+private fun SemVer.formatAsInt(
+    isSnapshot: Boolean = false,
+    majorFactor: Int = 1000 * 1000 * 1000,
+    minorFactor: Int = 1000 * 1000,
+    patchFactor: Int = 1000,
+    snapshotSuffix: Int = 9,
+): Int {
+    return if (isSnapshot) {
+        (major * majorFactor) +
+            (minor * minorFactor) +
+            (patch * patchFactor) +
+            snapshotSuffix
+    } else {
+        (major * majorFactor) +
+            (minor * minorFactor) +
+            (patch * patchFactor)
+    }.also {
+        check(it < 2100000000) // the biggest number accepted by Google Play
+    }
 }
