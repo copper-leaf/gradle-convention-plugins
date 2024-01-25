@@ -13,7 +13,7 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC2")
 
                 implementation("io.kotest:kotest-framework-engine:5.6.2")
                 implementation("io.kotest:kotest-assertions-core:5.6.2")

@@ -2,6 +2,7 @@
 
 import com.copperleaf.gradle.ConventionConfig
 import com.copperleaf.gradle.nativeTargetGroup
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
     kotlin("multiplatform")
@@ -36,6 +37,12 @@ kotlin {
             if(subprojectInfo.kotlinJsExecutable) {
                 binaries.executable()
             }
+        }
+    }
+    if (subprojectInfo.kotlinWasmJs) {
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmJs {
+            binaries.executable()
         }
     }
     if (subprojectInfo.kotlinIos) {
@@ -84,6 +91,15 @@ kotlin {
                 dependencies { }
             }
             val jsTest by getting {
+                dependencies { }
+            }
+        }
+
+        if (subprojectInfo.kotlinWasmJs) {
+            val wasmJsMain by getting {
+                dependencies { }
+            }
+            val wasmJsTest by getting {
                 dependencies { }
             }
         }
