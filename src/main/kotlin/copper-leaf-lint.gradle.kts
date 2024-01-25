@@ -9,15 +9,32 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
     outputToConsole.set(true)
     ignoreFailures.set(false)
     enableExperimentalRules.set(false)
-    disabledRules.set(
-        setOf(
-            "no-wildcard-imports",
-            "import-ordering",
-            "filename",
-            "trailing-comma-on-call-site",
-            "trailing-comma-on-declaration-site",
-            "indent",
-            "max-line-length",
+    additionalEditorconfig.set(
+        mapOf(
+            "insert_final_newline" to "true",
+            "max_line_length" to "120",
+            "ktlint_function_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than" to "unset",
+
+            "ktlint_standard_no-wildcard-imports" to "disabled",
+            "ktlint_standard_import-ordering" to "disabled",
+            "ktlint_standard_filename" to "disabled",
+            "ktlint_standard_trailing-comma-on-call-site" to "disabled",
+            "ktlint_standard_trailing-comma-on-declaration-site" to "disabled",
+            "ktlint_standard_string-template-indent" to "disabled",
+            "ktlint_standard_max-line-length" to "disabled",
+            "ktlint_standard_property-naming" to "disabled",
+            "ktlint_standard_multiline-expression-wrapping" to "disabled",
+            "ktlint_standard_function-signature" to "disabled",
+            "ktlint_standard_no-blank-line-in-list" to "disabled",
+            "ktlint_standard_blank-line-before-declaration" to "disabled",
+            "ktlint_standard_indent" to "disabled",
+            "ktlint_standard_no-empty-first-line-in-class-body" to "disabled",
+            "ktlint_standard_comment-wrapping" to "disabled",
+            "ktlint_standard_parameter-list-wrapping" to "disabled",
+            "ktlint_standard_argument-list-wrapping" to "disabled",
+            "ktlint_standard_wrapping" to "disabled",
+            "ktlint_standard_function-naming" to "disabled",
+            "ktlint_standard_no-consecutive-comments" to "disabled",
         )
     )
     reporters {

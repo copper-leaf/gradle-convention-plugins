@@ -4,20 +4,20 @@
 
 [libraries]
 
-gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "8.1.0" }
-gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.9.10" }
-gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "1.9.10" }
-gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.5.1" }
-gradlePlugin-ktlint                       = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "11.5.1" }
-gradlePlugin-kotest                       = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version = "5.6.2" }
+gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "8.2.1" }
+gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.9.22" }
+gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "1.9.22" }
+gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.6.0-dev1362" }
+gradlePlugin-ktlint                       = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.0" }
+gradlePlugin-kotest                       = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version = "5.8.0" }
 gradlePlugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.13.2" }
 gradlePlugin-orchid                       = { module = "gradle.plugin.com.eden:orchidPlugin", version = "0.21.1" }
-gradlePlugin-buildConfig                  = { module = "com.github.gmazzo:gradle-buildconfig-plugin", version = "3.1.0" }
+gradlePlugin-buildConfig                  = { module = "com.github.gmazzo.buildconfig:plugin", version = "5.3.3" }
 gradlePlugin-mokoResources                = { module = "dev.icerock.moko:resources-generator", version = "0.23.0" }
-gradlePlugin-sqldelight                   = { module = "com.squareup.sqldelight:gradle-plugin", version = "1.5.4" }
+gradlePlugin-sqldelight                   = { module = "app.cash.sqldelight:gradle-plugin", version = "2.0.1" }
 
-gradlePlugin-jetbrainsIntelliJ            = { module = "org.jetbrains.intellij.plugins:gradle-intellij-plugin", version = "1.15.0" }
-gradlePlugin-jetbrainsChangelog           = { module = "org.jetbrains.intellij.plugins:gradle-changelog-plugin", version = "2.1.2" }
+gradlePlugin-jetbrainsIntelliJ            = { module = "org.jetbrains.intellij.plugins:gradle-intellij-plugin", version = "1.16.1" }
+gradlePlugin-jetbrainsChangelog           = { module = "org.jetbrains.intellij.plugins:gradle-changelog-plugin", version = "2.2.0" }
 
-okhttp                                    = { module = "com.squareup.okhttp3:okhttp", version = "4.11.0" }
+okhttp                                    = { module = "com.squareup.okhttp3:okhttp", version = "4.12.0" }
 semver                                    = { module = "net.swiftzer.semver:semver", version = "1.3.0" }

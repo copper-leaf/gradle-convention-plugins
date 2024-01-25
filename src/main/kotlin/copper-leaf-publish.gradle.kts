@@ -93,6 +93,7 @@ afterEvaluate {
     }
 
     if (subprojectInfo.kotlinIos && hostInfo.isMac) {
+        tasks.named("compileTestKotlinIosX64").configure { mustRunAfter("signIosX64Publication") }
         tasks.named("compileTestKotlinIosSimulatorArm64").configure { mustRunAfter("signIosSimulatorArm64Publication") }
         tasks.named("linkDebugTestIosSimulatorArm64").configure { mustRunAfter("signIosSimulatorArm64Publication") }
     }

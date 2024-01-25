@@ -3,7 +3,7 @@ import dev.icerock.gradle.MRVisibility
 
 plugins {
     kotlin("multiplatform")
-    id("com.squareup.sqldelight")
+    id("app.cash.sqldelight")
 }
 
 kotlin {
@@ -17,7 +17,7 @@ kotlin {
         if (subprojectInfo.kotlinAndroid) {
             val androidMain by getting {
                 dependencies {
-                    implementation("com.squareup.sqldelight:android-driver:1.5.4")
+                    implementation("app.cash.sqldelight:android-driver:2.0.1")
                 }
             }
         }
@@ -25,7 +25,7 @@ kotlin {
         if (subprojectInfo.kotlinJvm) {
             val jvmMain by getting {
                 dependencies {
-                    implementation("com.squareup.sqldelight:sqlite-driver:1.5.4")
+                    implementation("app.cash.sqldelight:sqlite-driver:2.0.1")
                 }
             }
         }
@@ -39,7 +39,7 @@ kotlin {
         if (subprojectInfo.kotlinIos) {
             val iosMain by getting {
                 dependencies {
-                    implementation("com.squareup.sqldelight:native-driver:1.5.4")
+                    implementation("app.cash.sqldelight:native-driver:2.0.1")
                 }
             }
         }

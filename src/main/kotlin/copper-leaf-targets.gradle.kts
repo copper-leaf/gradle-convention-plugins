@@ -3,6 +3,8 @@
 import com.copperleaf.gradle.ConventionConfig
 import com.copperleaf.gradle.nativeTargetGroup
 import org.gradle.api.tasks.compile.JavaCompile
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
     kotlin("multiplatform")
@@ -114,3 +116,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     }
 }
 
+if (subprojectInfo.kotlinJs) {
+    rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {
+        rootProject.the<YarnRootExtension>().yarnLockMismatchReport = YarnLockMismatchReport.NONE
+        rootProject.the<YarnRootExtension>().reportNewYarnLock = false
+        rootProject.the<YarnRootExtension>().yarnLockAutoReplace = true
+    }
+}

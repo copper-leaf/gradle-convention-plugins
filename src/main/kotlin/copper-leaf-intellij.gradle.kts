@@ -23,8 +23,8 @@ dependencies {
 
     // Ktor websocket server
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/

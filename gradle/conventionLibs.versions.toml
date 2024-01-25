@@ -6,21 +6,19 @@
 
 [versions]
 coroutines = "1.7.3"
-serialization = "1.5.1"
-datetime = "0.4.0"
-ktor = "2.3.3"
+serialization = "1.6.2"
+datetime = "0.5.0"
+ktor = "2.3.7"
 
-androidxLifecycle = "2.6.1"
+androidxLifecycle = "2.7.0"
 
-multiplatformSettings = "1.0.0"
+multiplatformSettings = "1.1.1"
 slf4j = "1.7.36"
-sqldelight = "1.5.4"
-ballast = "4.0.0"
+sqldelight = "2.0.1"
+ballast = "4.0.1-SNAPSHOT"
+koin = "3.5.3"
 
 [libraries]
-parsus = { module = "me.alllex.parsus:parsus-jvm", version = "0.5.4" }
-betterParse = { module = "com.github.h0tk3y.betterParse:better-parse", version = "0.4.4" }
-
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
@@ -51,13 +49,13 @@ ktor-http-utils = { module = "io.ktor:ktor-http", version.ref = "ktor" }
 androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
-androidx-core = { module = "androidx.core:core-ktx", version = "1.10.1" }
+androidx-core = { module = "androidx.core:core-ktx", version = "1.12.0" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.5.7" }
-androidx-material = { module = "com.google.android.material:material", version = "1.9.0" }
-androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.7.2" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.6.2" }
+androidx-material = { module = "com.google.android.material:material", version = "1.11.0" }
+androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.8.2" }
 
-firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.2.2" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.7.0" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 
@@ -68,10 +66,10 @@ multiplatformSettings-noArg = { module = "com.russhwolf:multiplatform-settings-n
 slf4j-nop = { module = "org.slf4j:slf4j-nop", version.ref = "slf4j" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
-sqldelight-driver-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
-sqldelight-driver-jvm = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqldelight" }
-sqldelight-driver-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqldelight" }
-
+sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-driver-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
+sqldelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 ballast-api                  = { module = "io.github.copper-leaf:ballast-api", version.ref = "ballast" }
 ballast-viewmodel            = { module = "io.github.copper-leaf:ballast-viewmodel", version.ref = "ballast" }
@@ -89,12 +87,16 @@ ballast-firebaseCrashlytics  = { module = "io.github.copper-leaf:ballast-firebas
 ballast-analytics            = { module = "io.github.copper-leaf:ballast-analytics", version.ref = "ballast" }
 ballast-firebaseAnalytics    = { module = "io.github.copper-leaf:ballast-firebase-analytics", version.ref = "ballast" }
 ballast-test                 = { module = "io.github.copper-leaf:ballast-test", version.ref = "ballast" }
+ballast-scheduler            = { module = "io.github.copper-leaf:ballast-scheduler", version.ref = "ballast" }
 
-benasher44-uuid = { module = "com.benasher44:uuid", version = "0.8.0" }
-kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.1.0" }
-coil = { module = "io.coil-kt:coil", version = "2.4.0" }
-composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
-kermit = { module = "co.touchlab:kermit", version = "2.0.0-RC5" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
+
+benasher44-uuid = { module = "com.benasher44:uuid", version = "0.8.2" }
+kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.2.0-SNAPSHOT" }
+coil = { module = "io.coil-kt:coil", version = "2.5.0" }
+composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.7.3" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.2" }
 
 
 [bundles]

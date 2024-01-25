@@ -1,6 +1,6 @@
 package com.copperleaf.gradle
 
-import com.github.gmazzo.gradle.plugins.BuildConfigExtension
+import com.github.gmazzo.buildconfig.BuildConfigExtension
 import org.gradle.api.Project
 
 fun BuildConfigExtension.projectVersion(project: Project, propertyName: String = "VERSION") {
