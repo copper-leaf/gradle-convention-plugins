@@ -15,7 +15,7 @@ androidxLifecycle = "2.7.0"
 multiplatformSettings = "1.1.1"
 slf4j = "1.7.36"
 sqldelight = "2.0.1"
-ballast = "4.0.1-SNAPSHOT"
+ballast = "4.1.0"
 koin = "3.5.3"
 
 [libraries]
@@ -93,7 +93,7 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
 
 benasher44-uuid = { module = "com.benasher44:uuid", version = "0.8.2" }
-kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.2.0-SNAPSHOT" }
+kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.2.0" }
 coil = { module = "io.coil-kt:coil", version = "2.5.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.7.3" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.2" }
