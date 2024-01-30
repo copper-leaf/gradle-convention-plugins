@@ -15,7 +15,7 @@ androidxLifecycle = "2.7.0"
 multiplatformSettings = "1.1.1"
 slf4j = "1.7.36"
 sqldelight = "2.0.1"
-ballast = "4.1.0"
+ballast = "4.1.0-SNAPSHOT"
 koin = "3.5.3"
 
 [libraries]
@@ -87,7 +87,7 @@ ballast-firebaseCrashlytics  = { module = "io.github.copper-leaf:ballast-firebas
 ballast-analytics            = { module = "io.github.copper-leaf:ballast-analytics", version.ref = "ballast" }
 ballast-firebaseAnalytics    = { module = "io.github.copper-leaf:ballast-firebase-analytics", version.ref = "ballast" }
 ballast-test                 = { module = "io.github.copper-leaf:ballast-test", version.ref = "ballast" }
-ballast-scheduler            = { module = "io.github.copper-leaf:ballast-scheduler", version.ref = "ballast" }
+ballast-schedules            = { module = "io.github.copper-leaf:ballast-schedules", version.ref = "ballast" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
