@@ -115,11 +115,3 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         }
     }
 }
-
-if (subprojectInfo.kotlinJs) {
-    rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {
-        rootProject.the<YarnRootExtension>().yarnLockMismatchReport = YarnLockMismatchReport.NONE
-        rootProject.the<YarnRootExtension>().reportNewYarnLock = false
-        rootProject.the<YarnRootExtension>().yarnLockAutoReplace = true
-    }
-}
