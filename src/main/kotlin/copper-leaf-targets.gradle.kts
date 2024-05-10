@@ -3,6 +3,7 @@
 import com.copperleaf.gradle.ConventionConfig
 import com.copperleaf.gradle.nativeTargetGroup
 import org.gradle.api.tasks.compile.JavaCompile
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
@@ -49,6 +50,21 @@ kotlin {
             iosX64(),
             iosSimulatorArm64(),
         )
+    }
+    if (subprojectInfo.kotlinWasmWasi) {
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmWasi {
+
+        }
+    }
+    if (subprojectInfo.kotlinWasmJs) {
+        @OptIn(ExperimentalWasmDsl::class)
+        wasmJs {
+            browser()
+            if (subprojectInfo.kotlinWasmJsExecutable) {
+                binaries.executable()
+            }
+        }
     }
 
     sourceSets {
@@ -97,6 +113,24 @@ kotlin {
                 dependencies { }
             }
             val iosTest by getting {
+                dependencies { }
+            }
+        }
+
+        if (subprojectInfo.kotlinWasmWasi) {
+            val wasmWasiMain by getting {
+                dependencies { }
+            }
+            val wasmWasiTest by getting {
+                dependencies { }
+            }
+        }
+
+        if (subprojectInfo.kotlinWasmJs) {
+            val wasmJsMain by getting {
+                dependencies { }
+            }
+            val wasmJsTest by getting {
                 dependencies { }
             }
         }

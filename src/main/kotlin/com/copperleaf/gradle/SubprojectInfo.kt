@@ -1,6 +1,7 @@
 package com.copperleaf.gradle
 
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 data class SubprojectInfo(
     val description: String,
@@ -13,6 +14,9 @@ data class SubprojectInfo(
     val kotlinIos: Boolean,
     val kotlinJs: Boolean,
     val kotlinJsExecutable: Boolean,
+    val kotlinWasmWasi: Boolean,
+    val kotlinWasmJs: Boolean,
+    val kotlinWasmJsExecutable: Boolean,
 
     val composeMaterial2: Boolean,
     val composeMaterial3: Boolean,
@@ -34,6 +38,9 @@ data class SubprojectInfo(
                 kotlinIos = conventionProperties.booleanProperty("copperleaf.targets.ios"),
                 kotlinJs = conventionProperties.booleanProperty("copperleaf.targets.js"),
                 kotlinJsExecutable = conventionProperties.booleanProperty("copperleaf.targets.js.executable"),
+                kotlinWasmWasi = conventionProperties.booleanProperty("copperleaf.targets.wasm.wasi"),
+                kotlinWasmJs = conventionProperties.booleanProperty("copperleaf.targets.wasm.js"),
+                kotlinWasmJsExecutable = conventionProperties.booleanProperty("copperleaf.targets.wasm.js.executable"),
 
                 composeMaterial2 = conventionProperties.booleanProperty("copperleaf.compose.material2", defaultValue = true),
                 composeMaterial3 = conventionProperties.booleanProperty("copperleaf.compose.material3", defaultValue = false),
