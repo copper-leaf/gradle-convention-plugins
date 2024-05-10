@@ -5,16 +5,16 @@
 # dependencies like test libraries.
 
 [versions]
-coroutines = "1.7.3"
-serialization = "1.6.2"
+coroutines = "1.8.1"
+serialization = "1.6.3"
 datetime = "0.5.0"
-ktor = "2.3.7"
+ktor = "2.3.11"
 
 androidxLifecycle = "2.7.0"
 
 multiplatformSettings = "1.1.1"
 slf4j = "1.7.36"
-sqldelight = "2.0.1"
+sqldelight = "2.0.2"
 ballast = "4.1.0"
 koin = "3.5.3"
 
@@ -92,7 +92,7 @@ ballast-schedules            = { module = "io.github.copper-leaf:ballast-schedul
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
 
-benasher44-uuid = { module = "com.benasher44:uuid", version = "0.8.2" }
+benasher44-uuid = { module = "com.benasher44:uuid", version = "0.8.4" }
 kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.2.0" }
 coil = { module = "io.coil-kt:coil", version = "2.5.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.7.3" }

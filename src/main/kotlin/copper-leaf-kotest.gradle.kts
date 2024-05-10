@@ -13,12 +13,12 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
 
-                implementation("io.kotest:kotest-framework-engine:5.8.0")
-                implementation("io.kotest:kotest-assertions-core:5.8.0")
-                implementation("io.kotest:kotest-framework-datatest:5.8.0")
-                implementation("io.kotest:kotest-property:5.8.0")
+                implementation("io.kotest:kotest-framework-engine:5.9.0")
+                implementation("io.kotest:kotest-assertions-core:5.9.0")
+                implementation("io.kotest:kotest-framework-datatest:5.9.0")
+                implementation("io.kotest:kotest-property:5.9.0")
             }
         }
 
@@ -27,7 +27,7 @@ kotlin {
                 dependencies {
                     implementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
                     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-                    implementation("io.kotest:kotest-runner-junit5:5.8.0")
+                    implementation("io.kotest:kotest-runner-junit5:5.9.0")
                 }
             }
         }
@@ -37,7 +37,7 @@ kotlin {
                 dependencies {
                     implementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
                     runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-                    implementation("io.kotest:kotest-runner-junit5:5.8.0")
+                    implementation("io.kotest:kotest-runner-junit5:5.9.0")
                 }
             }
         }
