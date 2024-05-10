@@ -53,6 +53,18 @@ kotlin {
                 dependencies { }
             }
         }
+
+        if (subprojectInfo.kotlinWasmWasi) {
+            val wasmWasiTest by getting {
+                dependencies { }
+            }
+        }
+
+        if (subprojectInfo.kotlinWasmJs) {
+            val wasmJsTest by getting {
+                dependencies { }
+            }
+        }
     }
 }
 
