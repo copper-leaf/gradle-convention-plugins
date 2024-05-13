@@ -93,11 +93,11 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
 
 benasher44-uuid = { module = "com.benasher44:uuid", version = "0.8.4" }
-kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.2.0" }
+kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.3.0" }
 coil = { module = "io.coil-kt:coil", version = "2.5.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.7.3" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.2" }
-
+uri = { module = "com.eygraber:uri-kmp", version = "0.0.18" }
 
 [bundles]
 
