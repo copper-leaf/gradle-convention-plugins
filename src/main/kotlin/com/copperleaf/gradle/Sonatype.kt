@@ -73,6 +73,7 @@ class Sonatype(private val project: Project) {
             .executeAndGetXmlResponse()
 
         val stagedRepositoryId = doc["promoteResponse"]["data"]["stagedRepositoryId"].textContent
+        println("Opened Sonatype staging repository (id: $stagedRepositoryId")
         publishConfiguration.stagingRepositoryId = stagedRepositoryId
     }
 
@@ -93,7 +94,10 @@ class Sonatype(private val project: Project) {
             )
             .executeAndIgnoreResponse()
 
-        publishConfiguration.stagingRepositoryIdFile.delete()
+        println("Closed Sonatype staging repository (id: ${publishConfiguration.stagingRepositoryId}")
+        if(publishConfiguration.stagingRepositoryIdFile.exists()) {
+            publishConfiguration.stagingRepositoryIdFile.delete()
+        }
     }
 
     fun writeProjectVersion() {

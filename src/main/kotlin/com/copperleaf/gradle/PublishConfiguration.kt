@@ -11,6 +11,7 @@ data class PublishConfiguration(
 
     val mavenRepositoryBaseUrl: String,
     val stagingRepositoryIdFile: File,
+    val stagingRepositoryIdEnvName: String,
     val stagingProfileId: String,
 
     val signingKeyId: String,
@@ -36,7 +37,9 @@ data class PublishConfiguration(
             return if (stagingRepositoryIdFile.exists()) {
                 stagingRepositoryIdFile.readText()
             } else {
-                ""
+                System.getenv(stagingRepositoryIdEnvName)
+                    .takeIf { !it.isNullOrBlank() }
+                    ?: ""
             }
         }
         set(value) {
@@ -108,6 +111,7 @@ data class PublishConfiguration(
                 mavenRepositoryBaseUrl = "https://s01.oss.sonatype.org",
                 stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export")
                     .resolve("stagingRepositoryId"),
+                stagingRepositoryIdEnvName = "stagingRepositoryId",
                 stagingProfileId = conventionProperties.property("staging_profile_id"),
 
                 signingKeyId = conventionProperties.property("signing_key_id"),
