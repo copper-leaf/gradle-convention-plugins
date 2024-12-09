@@ -4,7 +4,6 @@ import com.copperleaf.gradle.ConventionConfig
 
 plugins {
     kotlin("multiplatform")
-    id("io.kotest.multiplatform")
 }
 
 kotlin {
@@ -13,32 +12,20 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
+                implementation(kotlin("test"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
-
-                implementation("io.kotest:kotest-framework-engine:5.9.0")
-                implementation("io.kotest:kotest-assertions-core:5.9.0")
-                implementation("io.kotest:kotest-framework-datatest:5.9.0")
-                implementation("io.kotest:kotest-property:5.9.0")
             }
         }
 
         if (subprojectInfo.kotlinAndroid) {
             val androidUnitTest by getting {
-                dependencies {
-                    implementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
-                    runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-                    implementation("io.kotest:kotest-runner-junit5:5.9.0")
-                }
+                dependencies { }
             }
         }
 
         if (subprojectInfo.kotlinJvm) {
             val jvmTest by getting {
-                dependencies {
-                    implementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
-                    runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-                    implementation("io.kotest:kotest-runner-junit5:5.9.0")
-                }
+                dependencies { }
             }
         }
 
@@ -69,7 +56,7 @@ kotlin {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+//    useJUnitPlatform()
     filter {
         isFailOnNoMatchingTests = false
     }

@@ -80,3 +80,5 @@ local.properties
 build/
 *.iml
 .DS_Store
+
+src/main/hugo/

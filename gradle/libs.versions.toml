@@ -15,6 +15,7 @@ gradlePlugin-orchid                       = { module = "gradle.plugin.com.eden:o
 gradlePlugin-buildConfig                  = { module = "com.github.gmazzo.buildconfig:plugin", version = "5.3.5" }
 gradlePlugin-mokoResources                = { module = "dev.icerock.moko:resources-generator", version = "0.23.0" }
 gradlePlugin-sqldelight                   = { module = "app.cash.sqldelight:gradle-plugin", version = "2.0.2" }
+gradlePlugin-hugo                         = { module = "io.github.fstaudt.hugo:gradle-hugo-plugin", version = "0.9.0" }
 
 gradlePlugin-jetbrainsIntelliJ            = { module = "org.jetbrains.intellij.plugins:gradle-intellij-plugin", version = "1.16.1" }
 gradlePlugin-jetbrainsChangelog           = { module = "org.jetbrains.intellij.plugins:gradle-changelog-plugin", version = "2.2.0" }
