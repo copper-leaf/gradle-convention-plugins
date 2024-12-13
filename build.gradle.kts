@@ -19,7 +19,7 @@ dependencies {
     implementation(libs.gradlePlugin.buildConfig)
     implementation(libs.gradlePlugin.mokoResources)
     implementation(libs.gradlePlugin.sqldelight)
-    implementation(libs.gradlePlugin.hugo)
+    implementation(libs.gradlePlugin.mkdocs)
 
     implementation(libs.gradlePlugin.jetbrainsIntelliJ)
     implementation(libs.gradlePlugin.jetbrainsChangelog)

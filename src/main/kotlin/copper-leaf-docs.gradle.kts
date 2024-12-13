@@ -1,12 +1,12 @@
+import gradle.kotlin.dsl.accessors._ad8564ff3f23344f83327959cde073bd.mkdocs
+
 plugins {
-    id("io.github.fstaudt.hugo")
+    id("ru.vyarus.mkdocs")
 }
 
-hugo {
-    version.set("0.139.3")
-    sourceDirectory.set("src/main/hugo")
-}
-
-tasks.hugoBuild {
-    outputDirectory.set(project.layout.buildDirectory.asFile.get().resolve("dist/hugo"))
+mkdocs {
+    extras = mapOf(
+        "version" to project.version.toString()
+    )
+    publish.docPath = ""
 }
