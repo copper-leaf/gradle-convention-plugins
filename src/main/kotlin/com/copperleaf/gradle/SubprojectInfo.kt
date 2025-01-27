@@ -1,7 +1,6 @@
 package com.copperleaf.gradle
 
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 data class SubprojectInfo(
     val description: String,

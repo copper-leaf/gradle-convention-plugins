@@ -1,4 +1,4 @@
-import gradle.kotlin.dsl.accessors._ad8564ff3f23344f83327959cde073bd.mkdocs
+import gradle.kotlin.dsl.accessors._8bd4eb7b547f0bd368072089c68170a6.mkdocs
 
 plugins {
     id("ru.vyarus.mkdocs")
