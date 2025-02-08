@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.gradlePlugin.kotlin)
     implementation(libs.gradlePlugin.kotlinSerialization)
     implementation(libs.gradlePlugin.kotlinCompose)
+    implementation(libs.gradlePlugin.kotlinComposeCompiler)
     implementation(libs.gradlePlugin.ktlint)
     implementation(libs.gradlePlugin.binaryCompatibilityValidator)
     implementation(libs.gradlePlugin.buildConfig)

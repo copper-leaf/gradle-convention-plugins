@@ -2,10 +2,6 @@
 
 import com.copperleaf.gradle.ConventionConfig
 import com.copperleaf.gradle.nativeTargetGroup
-import org.gradle.api.tasks.compile.JavaCompile
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
-import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
     kotlin("multiplatform")
@@ -52,13 +48,13 @@ kotlin {
         )
     }
     if (subprojectInfo.kotlinWasmWasi) {
-        @OptIn(ExperimentalWasmDsl::class)
+        @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
         wasmWasi {
 
         }
     }
     if (subprojectInfo.kotlinWasmJs) {
-        @OptIn(ExperimentalWasmDsl::class)
+        @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
         wasmJs {
             browser()
             if (subprojectInfo.kotlinWasmJsExecutable) {

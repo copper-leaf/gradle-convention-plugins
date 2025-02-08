@@ -5,8 +5,8 @@
 # dependencies like test libraries.
 
 [versions]
-coroutines = "1.8.1"
-serialization = "1.6.3"
+coroutines = "1.10.1"
+serialization = "1.8.0"
 datetime = "0.5.0"
 ktor = "2.3.11"
 
@@ -15,8 +15,9 @@ androidxLifecycle = "2.7.0"
 multiplatformSettings = "1.1.1"
 slf4j = "1.7.36"
 sqldelight = "2.0.2"
-ballast = "4.2.0"
+ballast = "4.2.2"
 koin = "3.5.3"
+wasmBrowser = "0.3"
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -25,6 +26,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+kotlinx-wasm-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "wasmBrowser" }
 
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
 ktor-server-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
@@ -49,11 +51,11 @@ ktor-http-utils = { module = "io.ktor:ktor-http", version.ref = "ktor" }
 androidx-lifecycle-common = { module = "androidx.lifecycle:lifecycle-common", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
-androidx-core = { module = "androidx.core:core-ktx", version = "1.12.0" }
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
-androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.6.2" }
+androidx-core = { module = "androidx.core:core-ktx", version = "1.15.0" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0" }
+androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.5" }
 androidx-material = { module = "com.google.android.material:material", version = "1.11.0" }
-androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.8.2" }
+androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.10.0" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.7.0" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
@@ -97,7 +99,7 @@ kudzu-core = { module = "io.github.copper-leaf:kudzu-core", version = "5.3.0" }
 coil = { module = "io.coil-kt:coil", version = "2.5.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.7.3" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.2" }
-uri = { module = "com.eygraber:uri-kmp", version = "0.0.18" }
+uri = { module = "com.eygraber:uri-kmp", version = "0.0.19" }
 
 [bundles]
 
