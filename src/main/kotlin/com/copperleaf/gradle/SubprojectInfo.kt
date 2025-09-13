@@ -9,7 +9,6 @@ data class SubprojectInfo(
 
     val kotlinAndroid: Boolean,
     val kotlinJvm: Boolean,
-    val kotlinJvmWithJava: Boolean,
     val kotlinIos: Boolean,
     val kotlinJs: Boolean,
     val kotlinJsExecutable: Boolean,
@@ -33,7 +32,6 @@ data class SubprojectInfo(
 
                 kotlinAndroid = conventionProperties.booleanProperty("copperleaf.targets.android"),
                 kotlinJvm = conventionProperties.booleanProperty("copperleaf.targets.jvm"),
-                kotlinJvmWithJava = conventionProperties.booleanProperty("copperleaf.targets.jvm.withJava"),
                 kotlinIos = conventionProperties.booleanProperty("copperleaf.targets.ios"),
                 kotlinJs = conventionProperties.booleanProperty("copperleaf.targets.js"),
                 kotlinJsExecutable = conventionProperties.booleanProperty("copperleaf.targets.js.executable"),

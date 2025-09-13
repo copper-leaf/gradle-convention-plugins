@@ -4,16 +4,16 @@
 
 [libraries]
 
-gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "8.7.3" }
-gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "2.1.0" }
-gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "2.1.0" }
-gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.7.1" }
-gradlePlugin-kotlinComposeCompiler        = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version = "2.1.0" }
-gradlePlugin-ktlint                       = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "12.1.1" }
-gradlePlugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.17.0" }
-gradlePlugin-buildConfig                  = { module = "com.github.gmazzo.buildconfig:plugin", version = "5.3.5" }
-gradlePlugin-mokoResources                = { module = "dev.icerock.moko:resources-generator", version = "0.23.0" }
-gradlePlugin-sqldelight                   = { module = "app.cash.sqldelight:gradle-plugin", version = "2.0.2" }
+gradlePlugin-android                      = { module = "com.android.tools.build:gradle", version = "8.10.0" }
+gradlePlugin-kotlin                       = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "2.2.20" }
+gradlePlugin-kotlinSerialization          = { module = "org.jetbrains.kotlin:kotlin-serialization", version = "2.2.20" }
+gradlePlugin-kotlinCompose                = { module = "org.jetbrains.compose:compose-gradle-plugin", version = "1.8.2" }
+gradlePlugin-kotlinComposeCompiler        = { module = "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin", version = "2.2.20" }
+gradlePlugin-ktlint                       = { module = "org.jlleitschuh.gradle:ktlint-gradle", version = "13.1.0" }
+gradlePlugin-binaryCompatibilityValidator = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version = "0.18.1" }
+gradlePlugin-buildConfig                  = { module = "com.github.gmazzo.buildconfig:plugin", version = "5.6.8" }
+gradlePlugin-mokoResources                = { module = "dev.icerock.moko:resources-generator", version = "0.25.0" }
+gradlePlugin-sqldelight                   = { module = "app.cash.sqldelight:gradle-plugin", version = "2.1.0" }
 gradlePlugin-mkdocs                       = { module = "ru.vyarus:gradle-mkdocs-plugin", version = "4.0.1" }
 
 gradlePlugin-jetbrainsIntelliJ            = { module = "org.jetbrains.intellij.plugins:gradle-intellij-plugin", version = "1.17.4" }

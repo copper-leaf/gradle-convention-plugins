@@ -23,9 +23,9 @@ dependencies {
     implementation(compose.materialIconsExtended)
 
     // Ktor websocket server
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -70,13 +70,14 @@ tasks {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-opt-in=kotlin.ExperimentalStdlibApi"
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
-        freeCompilerArgs += "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
-        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
-        freeCompilerArgs += "-opt-in=androidx.compose.material.ExperimentalMaterialApi"
-        freeCompilerArgs += "-opt-in=org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi"
+    compilerOptions {
+        freeCompilerArgs.add("-opt-in=kotlin.ExperimentalStdlibApi")
+        freeCompilerArgs.add("-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi")
+        freeCompilerArgs.add("-opt-in=androidx.compose.foundation.ExperimentalFoundationApi")
+        freeCompilerArgs.add("-opt-in=androidx.compose.animation.ExperimentalAnimationApi")
+        freeCompilerArgs.add("-opt-in=androidx.compose.ui.ExperimentalComposeUiApi")
+        freeCompilerArgs.add("-opt-in=androidx.compose.material.ExperimentalMaterialApi")
+        freeCompilerArgs.add("-opt-in=org.jetbrains.compose.splitpane.ExperimentalSplitPaneApi")
+        freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
     }
 }
