@@ -39,6 +39,7 @@ android {
             withJavadocJar()
         }
     }
+
 }
 
 afterEvaluate {
