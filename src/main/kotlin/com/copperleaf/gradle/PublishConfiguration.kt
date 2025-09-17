@@ -108,7 +108,7 @@ data class PublishConfiguration(
                 githubUser = conventionProperties.property("github_username"),
                 githubToken = conventionProperties.property("github_token"),
 
-                mavenRepositoryBaseUrl = "https://s01.oss.sonatype.org",
+                mavenRepositoryBaseUrl = "https://ossrh-staging-api.central.sonatype.com",
                 stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export")
                     .resolve("stagingRepositoryId"),
                 stagingRepositoryIdEnvName = "stagingRepositoryId",
