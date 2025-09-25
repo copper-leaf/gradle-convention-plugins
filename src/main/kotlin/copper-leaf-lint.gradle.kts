@@ -38,6 +38,7 @@ configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
             "ktlint_standard_chain-method-continuation" to "disabled",
             "ktlint_standard_function-expression-body" to "disabled",
             "ktlint_standard_function-literal" to "disabled",
+            "ktlint_standard_class-signature" to "disabled",
         )
     )
     reporters {
