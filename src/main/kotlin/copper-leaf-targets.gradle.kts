@@ -2,6 +2,8 @@
 
 import com.copperleaf.gradle.ConventionConfig
 import com.copperleaf.gradle.nativeTargetGroup
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
@@ -20,7 +22,14 @@ kotlin {
     }
     if (subprojectInfo.kotlinAndroid) {
         androidTarget {
-            publishLibraryVariants("release", "debug")
+            val publishConfiguration = ConventionConfig.publishConfig(project)
+            if(publishConfiguration.androidReleaseModeEnabled) {
+                publishLibraryVariants("release", "debug")
+            }
+            @OptIn(ExperimentalKotlinGradlePluginApi::class)
+            compilerOptions {
+                jvmTarget.set(ConventionConfig.repoInfo(project).javaVersionEnum)
+            }
         }
     }
     if (subprojectInfo.kotlinJs) {
