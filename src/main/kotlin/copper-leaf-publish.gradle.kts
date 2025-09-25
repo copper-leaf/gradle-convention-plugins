@@ -21,18 +21,18 @@ publishing {
         maven(url = "${project.layout.buildDirectory.asFile.get()}/.m2/repository") {
             name = "project"
         }
-        maven(url = "${publishConfiguration.mavenRepositoryBaseUrl}/service/local/staging/deployByRepositoryId/${publishConfiguration.stagingRepositoryId}") {
+        maven(url = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deployByRepositoryId/${publishConfiguration.stagingRepositoryId}") {
             name = "mavenCentral"
             credentials {
-                username = publishConfiguration.ossrhUsername
-                password = publishConfiguration.ossrhPassword
+                username = publishConfiguration.sonatypeUsername
+                password = publishConfiguration.sonatypePassword
             }
         }
-        maven(url = "${publishConfiguration.mavenRepositoryBaseUrl}/content/repositories/snapshots/") {
+        maven(url = "https://central.sonatype.com/repository/maven-snapshots/") {
             name = "mavenCentralSnapshots"
             credentials {
-                username = publishConfiguration.ossrhUsername
-                password = publishConfiguration.ossrhPassword
+                username = publishConfiguration.sonatypeUsername
+                password = publishConfiguration.sonatypePassword
             }
         }
     }

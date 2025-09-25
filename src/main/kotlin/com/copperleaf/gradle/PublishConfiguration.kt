@@ -9,7 +9,6 @@ data class PublishConfiguration(
     val githubUser: String,
     val githubToken: String,
 
-    val mavenRepositoryBaseUrl: String,
     val stagingRepositoryIdFile: File,
     val stagingRepositoryIdEnvName: String,
     val stagingProfileId: String,
@@ -17,8 +16,8 @@ data class PublishConfiguration(
     val signingKeyId: String,
     val signingKey: String,
     val signingPassword: String,
-    val ossrhUsername: String,
-    val ossrhPassword: String,
+    val sonatypeUsername: String,
+    val sonatypePassword: String,
 
     val jetbrainsMarketplacePassphrase: String,
     val jetbrainsMarketplacePrivateKey: String,
@@ -62,7 +61,6 @@ data class PublishConfiguration(
             |PublishConfiguration(
             |    githubUser=${if (githubUser.isNotBlank()) "[REDACTED]" else ""}
             |    githubToken=${if (githubToken.isNotBlank()) "[REDACTED]" else ""}
-            |    mavenRepositoryBaseUrl=$mavenRepositoryBaseUrl
             |    stagingRepositoryIdFile=$stagingRepositoryIdFile
             |    stagingRepositoryId=$stagingRepositoryId
             |    stagingProfileId=$stagingProfileId
@@ -70,8 +68,8 @@ data class PublishConfiguration(
             |    signingKeyId=${if (signingKeyId.isNotBlank()) "[REDACTED]" else ""}
             |    signingKey=${if (signingKey.isNotBlank()) "[REDACTED]" else ""}
             |    signingPassword=${if (signingPassword.isNotBlank()) "[REDACTED]" else ""}
-            |    ossrhUsername=${if (ossrhUsername.isNotBlank()) "[REDACTED]" else ""}
-            |    ossrhPassword=${if (ossrhPassword.isNotBlank()) "[REDACTED]" else ""}
+            |    sonatypeUsername=${if (sonatypeUsername.isNotBlank()) "[REDACTED]" else ""}
+            |    sonatypePassword=${if (sonatypePassword.isNotBlank()) "[REDACTED]" else ""}
             |    
             |    jetbrainsMarketplacePassphrase=${if (jetbrainsMarketplacePassphrase.isNotBlank()) "[REDACTED]" else ""}
             |    jetbrainsMarketplacePrivateKey=${if (jetbrainsMarketplacePrivateKey.isNotBlank()) "[REDACTED]" else ""}
@@ -108,7 +106,6 @@ data class PublishConfiguration(
                 githubUser = conventionProperties.property("github_username"),
                 githubToken = conventionProperties.property("github_token"),
 
-                mavenRepositoryBaseUrl = "https://ossrh-staging-api.central.sonatype.com",
                 stagingRepositoryIdFile = project.rootProject.layout.buildDirectory.asFile.get().resolve("export")
                     .resolve("stagingRepositoryId"),
                 stagingRepositoryIdEnvName = "stagingRepositoryId",
@@ -117,8 +114,8 @@ data class PublishConfiguration(
                 signingKeyId = conventionProperties.property("signing_key_id"),
                 signingKey = conventionProperties.propertyAsFile("signing_key"),
                 signingPassword = conventionProperties.property("signing_password"),
-                ossrhUsername = conventionProperties.property("ossrh_username"),
-                ossrhPassword = conventionProperties.property("ossrh_password"),
+                sonatypeUsername = conventionProperties.property("sonatype_username"),
+                sonatypePassword = conventionProperties.property("sonatype_password"),
 
                 jetbrainsMarketplacePassphrase = conventionProperties.property("jb_passphrase"),
                 jetbrainsMarketplacePrivateKey = conventionProperties.propertyAsFile("jb_signing_key"),

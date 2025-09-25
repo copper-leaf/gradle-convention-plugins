@@ -10,43 +10,14 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import javax.xml.XMLConstants
-import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.toJavaDuration
 
+@Suppress("UNCHECKED_CAST")
 class Sonatype(private val project: Project) {
-    val XML_MEDIA_TYPE = "application/xml".toMediaType()
-
-    fun PublishConfiguration.sonatypeRequest(path: String, bodyXml: String): Request {
-        return Request.Builder()
-            .url("${mavenRepositoryBaseUrl}/$path")
-            .post(bodyXml.toRequestBody(XML_MEDIA_TYPE))
-            .addHeader("Authorization", Credentials.basic(ossrhUsername, ossrhPassword))
-            .build()
-    }
-
-    fun Request.executeAndGetXmlResponse(): Document {
-        val client = OkHttpClient()
-
-        val response = client.newCall(this).execute()
-        val responseBody = response.body!!.string()
-        println(responseBody)
-
-        val dbf: DocumentBuilderFactory = DocumentBuilderFactory.newInstance()
-        dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        val db: DocumentBuilder = dbf.newDocumentBuilder()
-        val doc: Document = db.parse(responseBody.byteInputStream())
-        doc.documentElement.normalize()
-
-        return doc
-    }
-
-    fun Request.executeAndIgnoreResponse() {
-        val client = OkHttpClient()
-
-        val response = client.newCall(this).execute()
-
-        response.body!!.string()
-    }
+    private val XML_MEDIA_TYPE = "application/xml".toMediaType()
+    private val JSON_MEDIA_TYPE = "application/json".toMediaType()
 
     operator fun Document.get(tagName: String): Node {
         return getElementsByTagName(tagName).item(0)
@@ -58,45 +29,64 @@ class Sonatype(private val project: Project) {
 
     fun openSonatypeStagingRepository()  {
         val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
+        val client = OkHttpClient()
 
-        val doc = publishConfiguration
-            .sonatypeRequest(
-                path = "service/local/staging/profiles/${publishConfiguration.stagingProfileId}/start",
-                bodyXml = """
-            |<promoteRequest>
-            |    <data>
-            |        <description>Opened by Gradle</description>
-            |    </data>
-            |</promoteRequest>
-            """.trimMargin()
+        val request = Request.Builder()
+            .url("https://ossrh-staging-api.central.sonatype.com/service/local/staging/profiles/${publishConfiguration.stagingProfileId}/start")
+            .addHeader("Authorization", Credentials.basic(publishConfiguration.sonatypeUsername, publishConfiguration.sonatypePassword))
+            .post(
+                """
+                |<promoteRequest>
+                |    <data>
+                |        <description>Opened by Gradle</description>
+                |    </data>
+                |</promoteRequest>
+                """.trimMargin().toRequestBody(XML_MEDIA_TYPE)
             )
-            .executeAndGetXmlResponse()
+            .build()
+
+        val responseBody = client
+            .newCall(request)
+            .execute()
+            .body!!
+            .string()
+
+        val doc: Document = DocumentBuilderFactory.newInstance()
+            .also { it.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true) }
+            .newDocumentBuilder()
+            .parse(responseBody.byteInputStream())
+            .also { it.documentElement.normalize() }
 
         val stagedRepositoryId = doc["promoteResponse"]["data"]["stagedRepositoryId"].textContent
         println("Opened Sonatype staging repository (id: $stagedRepositoryId")
         publishConfiguration.stagingRepositoryId = stagedRepositoryId
     }
 
-    fun closeSonatypeStagingRepository() {
-        val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
+    fun closeSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)){
 
-        publishConfiguration
-            .sonatypeRequest(
-                path = "service/local/staging/profiles/${publishConfiguration.stagingProfileId}/finish",
-                bodyXml = """
-            |<promoteRequest>
-            |    <data>
-            |        <stagedRepositoryId>${publishConfiguration.stagingRepositoryId}</stagedRepositoryId>
-            |        <description>Closed by Gradle</description>
-            |    </data>
-            |</promoteRequest>
-            """.trimMargin()
-            )
-            .executeAndIgnoreResponse()
+        val key = jsonSonatypeRequest(
+            method = "GET",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories",
+        )
+            .getArray("repositories")
+            .getMapAt(0)
+            .getString("key")
 
-        println("Closed Sonatype staging repository (id: ${publishConfiguration.stagingRepositoryId}")
-        if(publishConfiguration.stagingRepositoryIdFile.exists()) {
-            publishConfiguration.stagingRepositoryIdFile.delete()
+        jsonSonatypeRequestIgnoreResponse(
+            method = "POST",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/upload/repository/$key?publishing_type=portal_api",
+            body = "{}",
+        )
+
+        jsonSonatypeRequestIgnoreResponse(
+            method = "DELETE",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/drop/repository/$key",
+            body = "{}",
+        )
+
+        println("Closed Sonatype staging repository (id: $key")
+        if(stagingRepositoryIdFile.exists()) {
+            stagingRepositoryIdFile.delete()
         }
     }
 
@@ -114,4 +104,77 @@ class Sonatype(private val project: Project) {
         file.writeText(projectVersion.toString())
     }
 
+    private fun PublishConfiguration.jsonSonatypeRequest(
+        method: String,
+        url: String,
+        body: String? = null,
+    ) : Map<String, Any> {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30.seconds.toJavaDuration())
+            .readTimeout(120.seconds.toJavaDuration())
+            .build()
+
+        val listRepositoriesRequest = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", Credentials.basic(sonatypeUsername, sonatypePassword))
+            .let {
+                when(method) {
+                    "GET" -> it.get()
+                    "POST" -> it.post(body!!.toRequestBody(JSON_MEDIA_TYPE))
+                    "DELETE" -> it.delete()
+                    else -> throw IllegalArgumentException("Unsupported HTTP method: $method")
+                }
+            }
+            .build()
+
+        val responseBody = client
+            .newCall(listRepositoriesRequest)
+            .execute()
+            .body!!
+            .string()
+
+        return groovy.json.JsonSlurper().parseText(responseBody) as Map<String, Any>
+    }
+
+    private fun PublishConfiguration.jsonSonatypeRequestIgnoreResponse(
+        method: String,
+        url: String,
+        body: String? = null,
+    ) {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30.seconds.toJavaDuration())
+            .readTimeout(120.seconds.toJavaDuration())
+            .build()
+
+        val listRepositoriesRequest = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", Credentials.basic(sonatypeUsername, sonatypePassword))
+            .let {
+                when(method) {
+                    "GET" -> it.get()
+                    "POST" -> it.post(body!!.toRequestBody(JSON_MEDIA_TYPE))
+                    "DELETE" -> it.delete()
+                    else -> throw IllegalArgumentException("Unsupported HTTP method: $method")
+                }
+            }
+            .build()
+
+        client
+            .newCall(listRepositoriesRequest)
+            .execute()
+            .body!!
+            .string()
+    }
+
+    private fun  Map<*, *>.getArray(key: String): List<Any> {
+        return this[key] as List<Any>
+    }
+
+    private fun  Map<*, *>.getString(key: String): String {
+        return this[key] as String
+    }
+
+    private fun  List<*>.getMapAt(index: Int): Map<Any, Any> {
+        return this[index] as Map<Any, Any>
+    }
 }
