@@ -9,7 +9,8 @@ data class RepoInfo(
     val githubUrl: String,
     val license: License,
     val javaVersion: String,
-    val javaVersionEnum: JvmTarget,
+    val javaVersionEnum: JavaVersion,
+    val jvmTarget: JvmTarget,
     val developer: Developer,
 ) {
     companion object {
@@ -19,7 +20,8 @@ data class RepoInfo(
                 githubUrl = "https://github.com/copper-leaf/${project.rootProject.name}",
                 license = License.BSD3,
                 javaVersion = JavaVersion.VERSION_17.toString(),
-                javaVersionEnum = JvmTarget.JVM_17,
+                javaVersionEnum = JavaVersion.VERSION_17,
+                jvmTarget = JvmTarget.JVM_17,
                 developer = Developer(
                     id = "cjbrooks12",
                     name = "Casey Brooks",

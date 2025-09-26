@@ -9,9 +9,12 @@ plugins {
 
 android {
     namespace = "com.copperleaf.${project.name.replace("-", ".")}"
-}
 
-android {
+    compileOptions {
+        sourceCompatibility = ConventionConfig.repoInfo(project).javaVersionEnum
+        targetCompatibility = ConventionConfig.repoInfo(project).javaVersionEnum
+    }
+
     compileSdk = 35
     defaultConfig {
         minSdk = 21

@@ -26,9 +26,8 @@ kotlin {
             if(publishConfiguration.androidReleaseModeEnabled) {
                 publishLibraryVariants("release", "debug")
             }
-            @OptIn(ExperimentalKotlinGradlePluginApi::class)
             compilerOptions {
-                jvmTarget.set(ConventionConfig.repoInfo(project).javaVersionEnum)
+                jvmTarget.set(ConventionConfig.repoInfo(project).jvmTarget)
             }
         }
     }
