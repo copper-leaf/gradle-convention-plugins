@@ -31,7 +31,7 @@ dependencies {
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     type.set("IC")
-    version.set("2023.1.1")
+    version.set("2024.1")
     downloadSources.set(true)
     plugins.set(listOf("org.jetbrains.kotlin"))
     updateSinceUntilBuild.set(false)
@@ -64,6 +64,7 @@ tasks {
                 "2022.1.4",
                 "2022.3",
                 "2023.1.1",
+                "2024.1",
             )
         )
     }
