@@ -27,13 +27,16 @@ class Sonatype(private val project: Project) {
         return (this as Element).getElementsByTagName(tagName).item(0)
     }
 
-    fun openSonatypeStagingRepository()  {
+    fun openSonatypeStagingRepository() {
         val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
         val client = OkHttpClient()
 
         val request = Request.Builder()
             .url("https://ossrh-staging-api.central.sonatype.com/service/local/staging/profiles/${publishConfiguration.stagingProfileId}/start")
-            .addHeader("Authorization", Credentials.basic(publishConfiguration.sonatypeUsername, publishConfiguration.sonatypePassword))
+            .addHeader(
+                "Authorization",
+                Credentials.basic(publishConfiguration.sonatypeUsername, publishConfiguration.sonatypePassword)
+            )
             .post(
                 """
                 |<promoteRequest>
@@ -62,9 +65,8 @@ class Sonatype(private val project: Project) {
         publishConfiguration.stagingRepositoryId = stagedRepositoryId
     }
 
-    fun closeSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)){
-
-        val key = jsonSonatypeRequest(
+    fun findSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)) {
+        val stagedRepositoryId = jsonSonatypeRequest(
             method = "GET",
             url = "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories",
         )
@@ -72,20 +74,27 @@ class Sonatype(private val project: Project) {
             .getMapAt(0)
             .getString("key")
 
+        println("Found Sonatype staging repository (id: $stagedRepositoryId")
+        this.stagingRepositoryId = stagedRepositoryId
+    }
+
+    fun closeSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)) {
+        findSonatypeStagingRepository()
+
         jsonSonatypeRequestIgnoreResponse(
             method = "POST",
-            url = "https://ossrh-staging-api.central.sonatype.com/manual/upload/repository/$key?publishing_type=portal_api",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/upload/repository/$stagingRepositoryId?publishing_type=portal_api",
             body = "{}",
         )
 
         jsonSonatypeRequestIgnoreResponse(
             method = "DELETE",
-            url = "https://ossrh-staging-api.central.sonatype.com/manual/drop/repository/$key",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/drop/repository/$stagingRepositoryId",
             body = "{}",
         )
 
-        println("Closed Sonatype staging repository (id: $key")
-        if(stagingRepositoryIdFile.exists()) {
+        println("Closed Sonatype staging repository (id: $stagingRepositoryId")
+        if (stagingRepositoryIdFile.exists()) {
             stagingRepositoryIdFile.delete()
         }
     }
@@ -94,10 +103,10 @@ class Sonatype(private val project: Project) {
         val projectVersion: ProjectVersion = ConventionConfig.projectVersion(project)
 
         val file = project.rootProject.layout.buildDirectory.asFile.get().resolve("export").resolve("projectVersion")
-        if(!file.parentFile.exists()) {
+        if (!file.parentFile.exists()) {
             file.parentFile.mkdirs()
         }
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.createNewFile()
         }
 
@@ -108,7 +117,7 @@ class Sonatype(private val project: Project) {
         method: String,
         url: String,
         body: String? = null,
-    ) : Map<String, Any> {
+    ): Map<String, Any> {
         val client = OkHttpClient.Builder()
             .connectTimeout(30.seconds.toJavaDuration())
             .readTimeout(120.seconds.toJavaDuration())
@@ -118,7 +127,7 @@ class Sonatype(private val project: Project) {
             .url(url)
             .addHeader("Authorization", Credentials.basic(sonatypeUsername, sonatypePassword))
             .let {
-                when(method) {
+                when (method) {
                     "GET" -> it.get()
                     "POST" -> it.post(body!!.toRequestBody(JSON_MEDIA_TYPE))
                     "DELETE" -> it.delete()
@@ -150,7 +159,7 @@ class Sonatype(private val project: Project) {
             .url(url)
             .addHeader("Authorization", Credentials.basic(sonatypeUsername, sonatypePassword))
             .let {
-                when(method) {
+                when (method) {
                     "GET" -> it.get()
                     "POST" -> it.post(body!!.toRequestBody(JSON_MEDIA_TYPE))
                     "DELETE" -> it.delete()
@@ -166,15 +175,15 @@ class Sonatype(private val project: Project) {
             .string()
     }
 
-    private fun  Map<*, *>.getArray(key: String): List<Any> {
+    private fun Map<*, *>.getArray(key: String): List<Any> {
         return this[key] as List<Any>
     }
 
-    private fun  Map<*, *>.getString(key: String): String {
+    private fun Map<*, *>.getString(key: String): String {
         return this[key] as String
     }
 
-    private fun  List<*>.getMapAt(index: Int): Map<Any, Any> {
+    private fun List<*>.getMapAt(index: Int): Map<Any, Any> {
         return this[index] as Map<Any, Any>
     }
 }
