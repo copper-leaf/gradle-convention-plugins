@@ -23,7 +23,7 @@ val writeProjectVersion by tasks.registering {
     }
 }
 
-val findStagingRepositoryId by tasks.registering {
+val findSonatypeStagingRepository by tasks.registering {
     description = "Find the staging repository ID from Sonatype and write it to a file"
     doLast {
         Sonatype(project).findSonatypeStagingRepository()

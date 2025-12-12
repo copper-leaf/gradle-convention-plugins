@@ -73,6 +73,7 @@ class Sonatype(private val project: Project) {
             .getArray("repositories")
             .getMapAt(0)
             .getString("key")
+            .split("/")[2]
 
         println("Found Sonatype staging repository (id: $stagedRepositoryId")
         this.stagingRepositoryId = stagedRepositoryId
