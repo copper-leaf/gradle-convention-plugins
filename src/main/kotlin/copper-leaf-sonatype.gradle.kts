@@ -8,14 +8,6 @@ val openSonatypeStagingRepository by tasks.registering {
     }
 }
 
-val closeSonatypeStagingRepository by tasks.registering {
-    group = "sonatype"
-    description = "Close the explicitly configured staging repository"
-    doLast {
-        Sonatype(project).closeSonatypeStagingRepository()
-    }
-}
-
 val writeProjectVersion by tasks.registering {
     description = "Write the project version to a file"
     doLast {
@@ -27,5 +19,23 @@ val findSonatypeStagingRepository by tasks.registering {
     description = "Find the staging repository ID from Sonatype and write it to a file"
     doLast {
         Sonatype(project).findSonatypeStagingRepository()
+    }
+}
+
+
+val closeSonatypeStagingRepository by tasks.registering {
+    group = "sonatype"
+    description = "Close the explicitly configured staging repository"
+    doLast {
+        Sonatype(project).closeSonatypeStagingRepository()
+    }
+}
+
+
+val deleteSonatypeStagingRepository by tasks.registering {
+    group = "sonatype"
+    description = "Delete the explicitly configured staging repository"
+    doLast {
+        Sonatype(project).deleteSonatypeStagingRepository()
     }
 }

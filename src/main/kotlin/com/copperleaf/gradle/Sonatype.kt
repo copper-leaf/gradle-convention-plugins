@@ -11,6 +11,7 @@ import org.w3c.dom.Element
 import org.w3c.dom.Node
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 
@@ -65,36 +66,48 @@ class Sonatype(private val project: Project) {
         publishConfiguration.stagingRepositoryId = stagedRepositoryId
     }
 
-    fun findSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)) {
-        val stagedRepositoryId = jsonSonatypeRequest(
+    fun findSonatypeStagingRepository(): Pair<String, String> = with(ConventionConfig.publishConfig(project)) {
+        val stagedRepositoryKey = findSonatypeStagingRepositoryKey()
+        val stagedRepositoryId = stagedRepositoryKey.split("/")[2]
+
+        println("Found Sonatype staging repository (id: $stagedRepositoryId")
+        this.stagingRepositoryId = stagedRepositoryId
+
+        return stagedRepositoryKey to stagedRepositoryId
+    }
+
+    fun findSonatypeStagingRepositoryKey(): String = with(ConventionConfig.publishConfig(project)) {
+        jsonSonatypeRequest(
             method = "GET",
             url = "https://ossrh-staging-api.central.sonatype.com/manual/search/repositories",
         )
             .getArray("repositories")
             .getMapAt(0)
             .getString("key")
-            .split("/")[2]
-
-        println("Found Sonatype staging repository (id: $stagedRepositoryId")
-        this.stagingRepositoryId = stagedRepositoryId
     }
 
     fun closeSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)) {
-        findSonatypeStagingRepository()
+        val (key, id) = findSonatypeStagingRepository()
 
         jsonSonatypeRequestIgnoreResponse(
             method = "POST",
-            url = "https://ossrh-staging-api.central.sonatype.com/manual/upload/repository/$stagingRepositoryId?publishing_type=portal_api",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/upload/repository/$key?publishing_type=portal_api",
             body = "{}",
         )
+
+        println("Closed Sonatype staging repository (key: $key")
+    }
+
+    fun deleteSonatypeStagingRepository() = with(ConventionConfig.publishConfig(project)) {
+        val (key, id) = findSonatypeStagingRepository()
 
         jsonSonatypeRequestIgnoreResponse(
             method = "DELETE",
-            url = "https://ossrh-staging-api.central.sonatype.com/manual/drop/repository/$stagingRepositoryId",
+            url = "https://ossrh-staging-api.central.sonatype.com/manual/drop/repository/$key",
             body = "{}",
         )
 
-        println("Closed Sonatype staging repository (id: $stagingRepositoryId")
+        println("Closed Sonatype staging repository (key: $key")
         if (stagingRepositoryIdFile.exists()) {
             stagingRepositoryIdFile.delete()
         }
@@ -153,7 +166,7 @@ class Sonatype(private val project: Project) {
     ) {
         val client = OkHttpClient.Builder()
             .connectTimeout(30.seconds.toJavaDuration())
-            .readTimeout(120.seconds.toJavaDuration())
+            .readTimeout(30.minutes.toJavaDuration())
             .build()
 
         val listRepositoriesRequest = Request.Builder()
