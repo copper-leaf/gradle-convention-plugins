@@ -18,6 +18,7 @@ sqldelight = "2.1.0"
 ballast = "4.2.2"
 koin = "4.1.1"
 wasmBrowser = "0.3"
+exposed = "1.0.0"
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -56,6 +57,7 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.7.0
 androidx-fragment = { module = "androidx.fragment:fragment-ktx", version = "1.8.5" }
 androidx-material = { module = "com.google.android.material:material", version = "1.11.0" }
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version = "1.10.0" }
+androidx-workmanager = { module = "androidx.work:work-runtime-ktx", version = "2.11.1" }
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version = "32.7.0" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
@@ -91,6 +93,15 @@ ballast-firebaseAnalytics    = { module = "io.github.copper-leaf:ballast-firebas
 ballast-test                 = { module = "io.github.copper-leaf:ballast-test", version.ref = "ballast" }
 ballast-schedules            = { module = "io.github.copper-leaf:ballast-schedules", version.ref = "ballast" }
 
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-kotlindatetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
+exposed-json = { module = "org.jetbrains.exposed:exposed-json", version.ref = "exposed" }
+exposed-migration-core = { module = "org.jetbrains.exposed:exposed-migration-core", version.ref = "exposed" }
+exposed-migration-jdbc = { module = "org.jetbrains.exposed:exposed-migration-jdbc", version.ref = "exposed" }
+jdbc-postgres = { module = "org.postgresql:postgresql", version = "42.7.7" }
+jdbc-mysql = { module = "com.mysql:mysql-connector-j", version = "9.5.0" }
+
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
 
@@ -100,6 +111,9 @@ coil-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version = "3.3.0"
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.7.3" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.8" }
 uri = { module = "com.eygraber:uri-kmp", version = "0.0.20" }
+testcontainers = { module = "org.testcontainers:testcontainers", version = "2.0.2" }
+lazytable = { module = "io.github.oleksandrbalan:lazytable", version = "1.10.0" }
+faker = { module = "io.github.serpro69:kotlin-faker", version = "1.14.0" }
 
 [bundles]
 
