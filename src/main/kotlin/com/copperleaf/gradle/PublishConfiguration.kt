@@ -53,34 +53,42 @@ data class PublishConfiguration(
         }
 
     override fun toString(): String {
-        return debug()
+        return debug(bypassSecurity = false)
     }
 
-    fun debug(): String {
+    fun debug(bypassSecurity: Boolean): String {
+        fun printValue(isSecure: Boolean, value: String?): String {
+            return if (!isSecure || bypassSecurity) {
+                if (value.isNullOrBlank()) "" else value
+            } else {
+                if (value.isNullOrBlank()) "" else "[REDACTED]"
+            }
+        }
+
         return """
             |PublishConfiguration(
-            |    githubUser=${if (githubUser.isNotBlank()) "[REDACTED]" else ""}
-            |    githubToken=${if (githubToken.isNotBlank()) "[REDACTED]" else ""}
-            |    stagingRepositoryIdFile=$stagingRepositoryIdFile
-            |    stagingRepositoryId=$stagingRepositoryId
-            |    stagingProfileId=$stagingProfileId
+            |    githubUser=${printValue(true, githubUser)}
+            |    githubToken=${printValue(true, githubToken)}
+            |    stagingRepositoryIdFile=${printValue(false, stagingRepositoryIdFile.toString())}
+            |    stagingRepositoryId=${printValue(false, stagingRepositoryId)}
+            |    stagingProfileId=${printValue(false, stagingProfileId)}
             |
-            |    signingKeyId=${if (signingKeyId.isNotBlank()) "[REDACTED]" else ""}
-            |    signingKey=${if (signingKey.isNotBlank()) "[REDACTED]" else ""}
-            |    signingPassword=${if (signingPassword.isNotBlank()) "[REDACTED]" else ""}
-            |    sonatypeUsername=${if (sonatypeUsername.isNotBlank()) "[REDACTED]" else ""}
-            |    sonatypePassword=${if (sonatypePassword.isNotBlank()) "[REDACTED]" else ""}
+            |    signingKeyId=${printValue(true, signingKeyId)}
+            |    signingKey=${printValue(true, signingKey)}
+            |    signingPassword=${printValue(true, signingPassword)}
+            |    sonatypeUsername=${printValue(true, sonatypeUsername)}
+            |    sonatypePassword=${printValue(true, sonatypePassword)}
             |    
-            |    jetbrainsMarketplacePassphrase=${if (jetbrainsMarketplacePassphrase.isNotBlank()) "[REDACTED]" else ""}
-            |    jetbrainsMarketplacePrivateKey=${if (jetbrainsMarketplacePrivateKey.isNotBlank()) "[REDACTED]" else ""}
-            |    jetbrainsMarketplaceCertificateChain=${if (jetbrainsMarketplaceCertificateChain.isNotBlank()) "[REDACTED]" else ""}
-            |    jetbrainsMarketplaceToken=${if (jetbrainsMarketplaceToken.isNotBlank()) "[REDACTED]" else ""}
+            |    jetbrainsMarketplacePassphrase=${printValue(true, jetbrainsMarketplacePassphrase)}
+            |    jetbrainsMarketplacePrivateKey=${printValue(true, jetbrainsMarketplacePrivateKey)}
+            |    jetbrainsMarketplaceCertificateChain=${printValue(true, jetbrainsMarketplaceCertificateChain)}
+            |    jetbrainsMarketplaceToken=${printValue(true, jetbrainsMarketplaceToken)}
             |    
-            |    androidKeystoreEncodedText=${if (androidKeystoreEncodedText.isNotBlank()) "[REDACTED]" else ""}
-            |    androidKeystorePath=${if (androidKeystorePath.isNotBlank()) "[REDACTED]" else ""}
-            |    androidKeystorePassword=${if (androidKeystorePassword.isNotBlank()) "[REDACTED]" else ""}
-            |    androidKeystoreKeyAlias=${if (androidKeystoreKeyAlias.isNotBlank()) "[REDACTED]" else ""}
-            |    androidKeystoreKeyPassword=${if (androidKeystoreKeyPassword.isNotBlank()) "[REDACTED]" else ""}
+            |    androidKeystoreEncodedText=${printValue(true, androidKeystoreEncodedText)}
+            |    androidKeystorePath=${printValue(true, androidKeystorePath)}
+            |    androidKeystorePassword=${printValue(true, androidKeystorePassword)}
+            |    androidKeystoreKeyAlias=${printValue(true, androidKeystoreKeyAlias)}
+            |    androidKeystoreKeyPassword=${printValue(true, androidKeystoreKeyPassword)}
             |)
         """.trimMargin()
     }
@@ -128,7 +136,9 @@ data class PublishConfiguration(
                 androidKeystoreKeyAlias = conventionProperties.property("keystore_key_alias"),
                 androidKeystoreKeyPassword = conventionProperties.property("keystore_key_password"),
                 androidReleaseModeEnabled = conventionProperties.booleanProperty("copperleaf.targets.android.release.enabled", true),
-            ).also { it.saveKeystoreFile(project) }
+            ).also {
+                it.saveKeystoreFile(project)
+            }
         }
     }
 }

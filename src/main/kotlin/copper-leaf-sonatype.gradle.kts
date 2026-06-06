@@ -1,3 +1,5 @@
+import com.copperleaf.gradle.ConventionConfig
+import com.copperleaf.gradle.PublishConfiguration
 import com.copperleaf.gradle.Sonatype
 
 val openSonatypeStagingRepository by tasks.registering {

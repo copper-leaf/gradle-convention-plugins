@@ -31,7 +31,8 @@ internal class GradleProjectPropertiesAccessor(
     private val project: Project
 ) : BuildEnvironmentValueAccessor {
     override fun getPropertyOrNull(name: String): String? {
-        return project.properties[name]?.toString()
+        return project.properties[name]?.toString() // property name set directly
+            ?: project.properties[name.uppercase(Locale.getDefault())]?.toString() // property set in gradle.properties with same name as ENV var name
     }
 }
 
