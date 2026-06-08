@@ -13,6 +13,8 @@ val subprojectInfo = ConventionConfig.subprojectInfo(project)
 
 kotlin {
 
+    jvmToolchain(ConventionConfig.repoInfo(project).javaVersion.toInt())
+
     if (subprojectInfo.explicitApi) {
         explicitApi()
     }
