@@ -41,3 +41,19 @@ val deleteSonatypeStagingRepository by tasks.registering {
         Sonatype(project).deleteSonatypeStagingRepository()
     }
 }
+
+val cleanMavenLocalRepository by tasks.registering {
+    group = "sonatype"
+    description = "Delete ~/.m2/repository to ensure a clean slate before publishing to MavenLocal"
+    doLast {
+        Sonatype(project).cleanMavenLocalRepository()
+    }
+}
+
+val publishToMavenCentralPortal by tasks.registering {
+    group = "sonatype"
+    description = "Zip ~/.m2/repository and upload it to the Sonatype Central Publishing Portal API"
+    doLast {
+        Sonatype(project).publishToMavenCentralPortal()
+    }
+}

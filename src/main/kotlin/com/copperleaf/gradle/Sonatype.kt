@@ -2,13 +2,18 @@ package com.copperleaf.gradle
 
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.gradle.api.Project
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
+import java.io.File
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.time.Duration.Companion.minutes
@@ -111,6 +116,97 @@ class Sonatype(private val project: Project) {
         if (stagingRepositoryIdFile.exists()) {
             stagingRepositoryIdFile.delete()
         }
+    }
+
+    fun cleanMavenLocalRepository() {
+        val m2RepoDir = File(System.getProperty("user.home"), ".m2/repository")
+        if (m2RepoDir.exists()) {
+            m2RepoDir.deleteRecursively()
+            println("Deleted ~/.m2/repository")
+        } else {
+            println("~/.m2/repository does not exist, nothing to delete")
+        }
+    }
+
+    fun publishToMavenCentralPortal() {
+        val publishingType = "USER_MANAGED"
+        val publishConfiguration: PublishConfiguration = ConventionConfig.publishConfig(project)
+
+        val m2RepoDir = File(System.getProperty("user.home"), ".m2/repository")
+        require(m2RepoDir.exists() && m2RepoDir.isDirectory) {
+            "~/.m2/repository does not exist. Run publishToMavenLocal first."
+        }
+
+        val deploymentName = "${project.group}:${project.name}:${project.version}"
+
+        val zipFile = createTempZipFromDirectory(m2RepoDir)
+        println("Zipped ~/.m2/repository to ${zipFile.absolutePath} (${zipFile.length() / 1024} KB)")
+
+        try {
+            val deploymentId = publishConfiguration.uploadBundleToPortal(zipFile, deploymentName, publishingType)
+            println("Uploaded bundle to Sonatype Central Portal (deploymentId: $deploymentId)")
+            println("Publishing type: $publishingType")
+            if (publishingType == "AUTOMATIC") {
+                println("Deployment will be published automatically after validation.")
+            } else {
+                println("Visit https://central.sonatype.com/publishing/deployments to review and publish.")
+            }
+        } finally {
+            zipFile.delete()
+        }
+    }
+
+    private fun createTempZipFromDirectory(sourceDir: File): File {
+        val zipFile = File.createTempFile("m2-bundle", ".zip")
+        ZipOutputStream(zipFile.outputStream().buffered()).use { zos ->
+            sourceDir.walkTopDown()
+                .filter { it.isFile }
+                .forEach { file ->
+                    val entryName = file.relativeTo(sourceDir).invariantSeparatorsPath
+                    zos.putNextEntry(ZipEntry(entryName))
+                    file.inputStream().use { it.copyTo(zos) }
+                    zos.closeEntry()
+                }
+        }
+        return zipFile
+    }
+
+    private fun PublishConfiguration.uploadBundleToPortal(
+        zipFile: File,
+        deploymentName: String?,
+        publishingType: String,
+    ): String {
+        val client = OkHttpClient.Builder()
+            .connectTimeout(60.seconds.toJavaDuration())
+            .readTimeout(10.minutes.toJavaDuration())
+            .writeTimeout(10.minutes.toJavaDuration())
+            .build()
+
+        val urlBuilder = StringBuilder("https://central.sonatype.com/api/v1/publisher/upload")
+        val queryParams = mutableListOf<String>()
+        if (deploymentName != null) queryParams += "name=${deploymentName}"
+        queryParams += "publishingType=$publishingType"
+        urlBuilder.append("?${queryParams.joinToString("&")}")
+
+        val requestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("bundle", zipFile.name, zipFile.asRequestBody("application/zip".toMediaType()))
+            .build()
+
+        val request = Request.Builder()
+            .url(urlBuilder.toString())
+            .addHeader("Authorization", Credentials.basic(sonatypeUsername, sonatypePassword))
+            .post(requestBody)
+            .build()
+
+        val response = client.newCall(request).execute()
+        val responseBody = response.body!!.string()
+
+        check(response.isSuccessful) {
+            "Upload failed (HTTP ${response.code}): $responseBody"
+        }
+
+        return responseBody.trim()
     }
 
     fun writeProjectVersion() {
