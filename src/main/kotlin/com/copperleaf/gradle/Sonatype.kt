@@ -12,6 +12,7 @@ import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.File
+import java.security.MessageDigest
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 import javax.xml.XMLConstants
@@ -157,11 +158,27 @@ class Sonatype(private val project: Project) {
                 .filter { it.isFile && it.name != "maven-metadata-local.xml" }
                 .forEach { file ->
                     val entryName = file.relativeTo(sourceDir).invariantSeparatorsPath
+                    val bytes = file.readBytes()
+
                     zos.putNextEntry(ZipEntry(entryName))
-                    file.inputStream().use { it.copyTo(zos) }
+                    zos.write(bytes)
+                    zos.closeEntry()
+
+                    zos.putNextEntry(ZipEntry("$entryName.md5"))
+                    zos.write(bytes.digest("MD5").toByteArray())
+                    zos.closeEntry()
+
+                    zos.putNextEntry(ZipEntry("$entryName.sha1"))
+                    zos.write(bytes.digest("SHA-1").toByteArray())
                     zos.closeEntry()
                 }
         }
+    }
+
+    private fun ByteArray.digest(algorithm: String): String {
+        return MessageDigest.getInstance(algorithm)
+            .digest(this)
+            .joinToString("") { "%02x".format(it) }
     }
 
     private fun PublishConfiguration.uploadBundleToPortal(
