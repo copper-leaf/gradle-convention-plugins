@@ -154,7 +154,7 @@ class Sonatype(private val project: Project) {
     private fun createZipFromDirectory(sourceDir: File, zipFile: File) {
         ZipOutputStream(zipFile.outputStream().buffered()).use { zos ->
             sourceDir.walkTopDown()
-                .filter { it.isFile }
+                .filter { it.isFile && it.name != "maven-metadata-local.xml" }
                 .forEach { file ->
                     val entryName = file.relativeTo(sourceDir).invariantSeparatorsPath
                     zos.putNextEntry(ZipEntry(entryName))
