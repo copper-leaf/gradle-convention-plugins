@@ -119,12 +119,12 @@ class Sonatype(private val project: Project) {
     }
 
     fun cleanMavenLocalRepository() {
-        val m2RepoDir = File(System.getProperty("user.home"), ".m2/repository")
-        if (m2RepoDir.exists()) {
-            m2RepoDir.deleteRecursively()
-            println("Deleted ~/.m2/repository")
+        val m2Dir = File(System.getProperty("user.home"), ".m2")
+        if (m2Dir.exists()) {
+            m2Dir.deleteRecursively()
+            println("Deleted ~/.m2")
         } else {
-            println("~/.m2/repository does not exist, nothing to delete")
+            println("~/.m2 does not exist, nothing to delete")
         }
     }
 
@@ -139,25 +139,19 @@ class Sonatype(private val project: Project) {
 
         val deploymentName = "${project.group}:${project.name}:${project.version}"
 
-        val zipFile = createTempZipFromDirectory(m2RepoDir)
+        val bundlesDir = File(System.getProperty("user.home"), ".m2/publishing/bundles")
+        bundlesDir.mkdirs()
+        val zipFile = bundlesDir.resolve("${deploymentName.replace(':', '-')}.zip")
+
+        createZipFromDirectory(m2RepoDir, zipFile)
         println("Zipped ~/.m2/repository to ${zipFile.absolutePath} (${zipFile.length() / 1024} KB)")
 
-        try {
-            val deploymentId = publishConfiguration.uploadBundleToPortal(zipFile, deploymentName, publishingType)
-            println("Uploaded bundle to Sonatype Central Portal (deploymentId: $deploymentId)")
-            println("Publishing type: $publishingType")
-            if (publishingType == "AUTOMATIC") {
-                println("Deployment will be published automatically after validation.")
-            } else {
-                println("Visit https://central.sonatype.com/publishing/deployments to review and publish.")
-            }
-        } finally {
-            zipFile.delete()
-        }
+        val deploymentId = publishConfiguration.uploadBundleToPortal(zipFile, deploymentName, publishingType)
+        println("Uploaded bundle to Sonatype Central Portal (deploymentId: $deploymentId)")
+        println("Visit https://central.sonatype.com/publishing/deployments to review and publish.")
     }
 
-    private fun createTempZipFromDirectory(sourceDir: File): File {
-        val zipFile = File.createTempFile("m2-bundle", ".zip")
+    private fun createZipFromDirectory(sourceDir: File, zipFile: File) {
         ZipOutputStream(zipFile.outputStream().buffered()).use { zos ->
             sourceDir.walkTopDown()
                 .filter { it.isFile }
@@ -168,7 +162,6 @@ class Sonatype(private val project: Project) {
                     zos.closeEntry()
                 }
         }
-        return zipFile
     }
 
     private fun PublishConfiguration.uploadBundleToPortal(
